@@ -115,6 +115,8 @@ proposals:
 
 - barclamp: neutron
   attributes:
+    use_dvr: true
+    use_l2pop: true
     ml2_mechanism_drivers:
     - ##networkingplugin##
     ml2_type_drivers:
