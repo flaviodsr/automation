@@ -522,7 +522,7 @@ find_fastest_clouddata_server()
         exec cat $cache || exit 100
     fi
     mkdir -p ~/.mkcloud
-    $scripts_lib_dir/find_fastest_server.pl {,provo-,provo2-}clouddata.cloud.suse.de. | tee $cache
+    $scripts_lib_dir/find_fastest_server.pl {provo-,provo2-}clouddata.cloud.suse.de. | tee $cache
 }
 
 function get_admin_node_dist
