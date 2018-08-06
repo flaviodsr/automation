@@ -19,6 +19,8 @@
   hosts: localhost
   connection: local
   gather_facts: False
+  vars:
+    task: "deploy"
 
   vars_prompt:
     - name: "scenario_name"
