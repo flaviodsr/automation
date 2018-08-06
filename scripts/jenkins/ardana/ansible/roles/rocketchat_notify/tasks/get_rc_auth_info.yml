@@ -20,6 +20,7 @@
     repo: "{{ rc_auth_info_git_url }}"
     dest: "{{ rc_auth_info_dir }}"
     force: yes
+  delegate_to: localhost
 
 - name: Load rocketchat auth variables
   include_vars: "{{ rc_auth_info_dir }}/rc.yml"
