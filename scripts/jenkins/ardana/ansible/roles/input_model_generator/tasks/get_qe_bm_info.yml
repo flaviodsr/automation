@@ -20,6 +20,7 @@
     repo: "{{ qe_ardana_bm_info_git_url }}"
     dest: "{{ qe_ardana_bm_info_dir }}"
     force: yes
+  delegate_to: localhost
 
 - name: Load baremetal variables for '{{ qe_env }}'
   include_vars:
