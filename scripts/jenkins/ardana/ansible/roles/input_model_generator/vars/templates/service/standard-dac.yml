@@ -27,7 +27,7 @@
 service_groups:
   - name: controller
     type: cluster
-    prefix: ctrl
+    prefix: c1
     distro_id: sles12sp3-x86_64
     heat_image_id: cleanvm-jeos-SLE12SP3
     heat_flavor_id: cloud-ardana-job-controller

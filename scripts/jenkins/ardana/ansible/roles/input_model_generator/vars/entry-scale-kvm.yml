@@ -22,7 +22,7 @@ scenario:
     and 2 SLES compute nodes.
   mml_enabled: True
   audit_enabled: True
-  ses_enabled: False
+  ses_enabled: "{{ ses_enabled | default(False) }}"
   use_cinder_volume_disk: True
   use_glance_cache_disk: False
   ntp_servers:
@@ -30,11 +30,11 @@ scenario:
   nameservers:
     - 147.2.2.2
 
-  controllers: 3
-  sles_computes: 2
-  rhel_computes: 0
+  controllers: "{{ controllers | default(3) }}"
+  sles_computes: "{{ sles_computes | default(2) }}"
+  rhel_computes: "{{ rhel_computes | default(0) }}"
 
-  service_template: standard
+  service_template: "{{ 'standard-dac' if clm_model is defined and clm_model == 'integrated' else 'standard' }}"
   network_template: compact
   interfaces_template: compact-bond
   disk_template: compact
