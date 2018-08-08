@@ -45,6 +45,10 @@
             user: "{{ item.ilo_user }}"
             password: "{{ item.ilo_password }}"
             state: off
+          register: bm_node_state
+          retries: 5
+          until: bm_node_state is succeeded
+          delay: 2
           when: "'ilo_user' in item"
           loop: "{{ bm_info.servers }}"
           loop_control:
