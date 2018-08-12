@@ -31,7 +31,7 @@ service_groups:
     distro_id: sles12sp3-x86_64
     heat_image_id: cleanvm-jeos-SLE12SP3
     heat_flavor_id: cloud-ardana-job-controller
-    member_count: '{{ scenario.controllers|default(3) }}'
+    member_count: '{{ controllers|default(3) }}'
     service_components:
       - CORE
       - LMM
@@ -46,7 +46,7 @@ service_groups:
     distro_id: sles12sp3-x86_64
     heat_image_id: cleanvm-jeos-SLE12SP3
     heat_flavor_id: cloud-ardana-job-compute
-    member_count: '{{ scenario.sles_computes|default(1) }}'
+    member_count: '{{ sles_computes|default(1) }}'
     min_count: 0
     service_components:
       - COMPUTE
@@ -56,7 +56,7 @@ service_groups:
     distro_id: rhel73-x86_64
     heat_image_id: centos73
     heat_flavor_id: cloud-ardana-job-compute
-    member_count: '{{ scenario.rhel_computes|default(1) }}'
+    member_count: '{{ rhel_computes|default(1) }}'
     min_count: 0
     service_components:
       - COMPUTE

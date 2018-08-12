@@ -62,5 +62,4 @@ network_groups:
   - name: STORAGE
     hostname_suffix: storage
     tagged_vlan: true
-    component_endpoints:
-      - STORAGE
+    component_endpoints: []

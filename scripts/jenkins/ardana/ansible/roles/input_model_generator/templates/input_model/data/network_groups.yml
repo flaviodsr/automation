@@ -47,6 +47,7 @@
 
       routes:
         - OCTAVIA-MGMT-NET
+        - default
 
 {%   elif bm_info is defined and 'EXTERNAL-API' in network_group['component_endpoints'] %}
         - bind-ext

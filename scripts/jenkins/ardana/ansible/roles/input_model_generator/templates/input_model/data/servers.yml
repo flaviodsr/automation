@@ -14,10 +14,15 @@
 # under the License.
 #
 ---
-{% set ns = namespace(clm_net_id=100, server_idx=0) %}
+{% set ns = namespace(clm_net_id=0, server_idx=0) %}
 {% for network_group in scenario['network_groups'] if 'CLM' in network_group['component_endpoints'] %}
-{%   set ns.clm_net_id = ns.clm_net_id+loop.index0 %}
+{%   set ns.clm_net_id = loop.index0+100 %}
 {% endfor  %}
+{% if ns.clm_net_id == 0  %}
+{%   for network_group in scenario['network_groups'] if 'MANAGEMENT' in network_group['component_endpoints'] %}
+{%     set ns.clm_net_id = loop.index0+100 %}
+{%   endfor  %}
+{% endif %}
   product:
     version: 2
 

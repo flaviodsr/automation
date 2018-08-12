@@ -14,13 +14,25 @@
 # under the License.
 #
 ---
+
+# Scenario parameters and default values
+core_nodes: 2
+lmm_nodes: 3
+dbmq_nodes: 3
+swpac_nodes: 3
+neutron_nodes: 3
+sles_computes: 1
+rhel_computes: 0
+swobj_nodes: 3
+
 scenario:
   name: mid-scale
   cloud_name: mid-scale
   description: >
     Multi-cluster scenario with all services enabled, dedicated CLM node, dedicated
-    clusters for: core, database/rabbitmq, neutron agents, swift proxy/account/container,
-    swift object, MML and 3 SLES compute nodes.
+    clusters with {{ core_nodes }} core nodes, {{ dbmq_nodes }} database/rabbitmq nodes, {{ neutron_nodes }} neutron
+    agent nodes, {{ swpac_nodes }} swift proxy/account/container nodes, {{ swobj_nodes }} swift object nodes,
+    {{ lmm_nodes }} LMM nodes and with {{ sles_computes }} SLES compute nodes and {{ rhel_computes }} RHEL compute nodes.
   mml_enabled: True
   audit_enabled: True
   ses_enabled: False
@@ -35,9 +47,7 @@ scenario:
     - 192.168.245.4
     - 192.168.245.2
 
-  sles_computes: 1
-  rhel_computes: 0
-
   service_template: full-spread
   network_template: full-spread
   disk_template: full-spread
+

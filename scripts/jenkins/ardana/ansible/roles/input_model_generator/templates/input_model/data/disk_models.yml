@@ -59,19 +59,6 @@
             fstype: ext4
             mkfs-opts: -O large_file
 
-{%   if 'compute' in service_group.name %}
-      - name: vg-comp
-        # this VG is dedicated to Nova Compute to keep VM IOPS off the OS disk
-        physical-volumes:
-          - /dev/sdb
-        logical-volumes:
-          - name: compute
-            size: 95%
-            mount: /var/lib/nova
-            fstype: ext4
-            mkfs-opts: -O large_file
-{%   endif %}
-
         consumer:
            name: os
 {%   for service_component in service_group['service_components'] %}
@@ -117,6 +104,21 @@
              usage: glance-cache
 
 {%       endif %}
+
+{%   elif service_component == 'COMPUTE' %}
+{%     set ns.drive_idx = ns.drive_idx+1 %}
+
+      - name: vg-comp
+        # this VG is dedicated to Nova Compute to keep VM IOPS off the OS disk
+        physical-volumes:
+          - /dev/sd{{ drive_letters[ns.drive_idx] }}
+        logical-volumes:
+          - name: compute
+            size: 95%
+            mount: /var/lib/nova
+            fstype: ext4
+            mkfs-opts: -O large_file
+
 {%     elif service_component == 'DBMQ' %}
 {%       set ns.drive_idx = ns.drive_idx+1 %}
 

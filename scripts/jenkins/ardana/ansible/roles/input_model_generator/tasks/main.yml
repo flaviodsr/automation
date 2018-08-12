@@ -49,3 +49,8 @@
   when: item.state == "file"
   loop_control:
     label: "{{ item.root | relpath }}/{{ item.path }}"
+
+- name: Generate virtual config
+  template:
+    src: "templates/virtConfig.yml"
+    dest: "{{ input_model_dir }}/virtConfig.yml"

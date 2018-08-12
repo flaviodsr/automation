@@ -14,23 +14,7 @@
 # under the License.
 #
 ---
-
-## Variables overriden by ardana-deploy jenkins job
-cloud_brand: "SUSE"
-cloud_source: "GM"
-ardana_input_model: "entry-scale-kvm"
-clm_model: "standalone"
-controllers: 3
-sles_computes: 2
-rhel_computes: 0
-ses_enabled: False
-cloud_maint_updates: ""
-sles_maint_updates: ""
-rc_notify: True
-
-
-ardana_ses_post_deploy: False
-rhel_enabled: "{{ rhel_computes is defined and rhel_computes > 0 }}"
+rc_notify: False
 
 rc_channels:
   qe002: "cloud-qe-hlm002"

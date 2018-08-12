@@ -43,7 +43,7 @@ interface_models:
           - GUEST
       - network_groups:
           - SWIFT
-        forced_network_groups:
+      - forced_network_groups:
           - STORAGE
       - network_groups:
           - TENANT-VLAN

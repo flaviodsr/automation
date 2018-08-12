@@ -26,5 +26,5 @@ disk_models:
         - LMM
   device_groups:
     - name: swiftobj
-      device_count: '{{ scenario.swobj_devices|default(2) }}'
+      device_count: '{{ swobj_devices|default(2) }}'
       disk_component: SWOBJ
