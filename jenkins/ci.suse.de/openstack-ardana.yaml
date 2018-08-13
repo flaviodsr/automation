@@ -19,6 +19,24 @@
       numToKeep: 2000
       daysToKeep: 300
 
+    properties:
+      - gitlab:
+          connection: "https://gitlab.use.de"
+
+    scm:
+      - git:
+          url: "gitlab@gitlab.suse.de:ArdanaDev/ardana-ansible.git"
+          refspec: "+refs/heads/*:refs/remotes/origin/* +refs/merge-requests/*/head:refs/remotes/origin/merge-requests/*"
+          branches:
+            - "origin/${gitlabSourceBranch}"
+
+    triggers:
+      - gitlab:
+          trigger-push: true
+          trigger-merge-request: true
+          trigger-open-merge-request-push: source
+          allow-all-branches: true
+
     parameters:
       - string:
           name: git_automation_repo
@@ -376,6 +394,9 @@
             build_pool_name=$build_pool_name
             build_pool_size=$build_pool_size
           condition: ALWAYS
+      - gitlab-notifier:
+          name: jenkins
+          mark-unstable-as-success: false
 
       - post-tasks:
         - matches:
