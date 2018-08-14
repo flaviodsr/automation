@@ -30,23 +30,40 @@
 {{ bm_info.neutron.external_networks | to_nice_yaml(indent=2) | indent(10, True) }}
 {% else %}
         neutron_provider_networks:
-          - name: OCTAVIA-MGMT-NET
+{% set ns = namespace(mgmt_net_id=0, physnet_id=0, net_id=30, vlan_id=100+scenario.network_groups|length) %}
+{% for network_group in scenario.network_groups if 'MANAGEMENT' in network_group.component_endpoints %}
+{%   set ns.mgmt_net_id = loop.index0+100 %}
+{% endfor  %}
+{% for network_group in scenario.network_groups %}
+{%   if 'NEUTRON-VLAN' in network_group.component_endpoints %}
+{%     set ns.physnet_id = ns.physnet_id+1 %}
+          - name: NEUTRON-{{ network_group.name|upper }}-VLAN-NET
             provider:
               - network_type: vlan
-                physical_network: physnet1
-                segmentation_id: 106
-            cidr: 172.30.1.0/24
+                physical_network: physnet{{ ns.physnet_id }}
+                segmentation_id: {{ ns.vlan_id }}
+            cidr: 172.{{ ns.net_id }}.1.0/24
             no_gateway:  True
             enable_dhcp: True
             allocation_pools:
-              - start: 172.30.1.10
-                end: 172.30.1.250
+              - start: 172.{{ ns.net_id }}.1.10
+                end: 172.{{ ns.net_id }}.1.250
             host_routes:
-              # route to MANAGEMENT-NET-1
-              - destination: 192.168.245.0/24
-                nexthop:  172.30.1.1
+              # route to management network
+              - destination: 192.168.{{ ns.mgmt_net_id }}.0/24
+                nexthop:  172.{{ ns.net_id }}.1.1
+
+{%     set ns.net_id = ns.net_id+1 %}
+{%     set ns.vlan_id = ns.vlan_id+1 %}
+{%   endif %}
+{% endfor %}
         neutron_external_networks:
-          - name: ext-net
-            cidr: 172.31.0.0/16
-            gateway: 172.31.0.1
+{% for network_group in scenario.network_groups %}
+{%   if 'NEUTRON-EXT' in network_group.component_endpoints %}
+          - name: NEUTRON-{{ network_group.name|upper }}-EXT-NET
+            cidr: 172.{{ ns.net_id }}.0.0/16
+            gateway: 172.{{ ns.net_id }}.0.1
+{%     set ns.net_id = ns.net_id+1 %}
+{%   endif %}
+{% endfor %}
 {% endif %}
