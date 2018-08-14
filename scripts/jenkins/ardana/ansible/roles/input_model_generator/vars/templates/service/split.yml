@@ -14,7 +14,7 @@
 # under the License.
 #
 #
-# Split scenario with dedicated CLM node:
+# Split scenario with standalone CLM node:
 #   - all services enabled
 #   - individual clusters with configurable size for: core, database/rabbitmq
 #   (colocated with swift object), and LMM services

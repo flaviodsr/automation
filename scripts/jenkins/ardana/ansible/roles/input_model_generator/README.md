@@ -65,7 +65,7 @@ controllers: 3
 sles_computes: 3
 rhel_computes: 0
 swobj_devices: 3
-clm_model: dedicated
+clm_model: standalone
 
 scenario:
   name: standard
@@ -113,7 +113,7 @@ following parameters:
       -e input_model_dir=/path/to/input-model \
       -e controllers=2 \
       -e sles_computes=1 \
-      -e clm_model=dedicated
+      -e clm_model=standalone
 ```
 
 ### Service templates

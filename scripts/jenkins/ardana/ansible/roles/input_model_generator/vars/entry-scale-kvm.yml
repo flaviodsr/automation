@@ -18,7 +18,7 @@
 controllers: 3
 sles_computes: 2
 rhel_computes: 0
-clm_model: dedicated
+clm_model: standalone
 
 scenario:
   name: entry-scale-kvm

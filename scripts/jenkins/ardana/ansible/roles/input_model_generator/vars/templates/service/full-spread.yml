@@ -14,7 +14,7 @@
 # under the License.
 #
 #
-# Multi-cluster scenario with dedicated CLM node and services fully spread
+# Multi-cluster scenario with standalone CLM node and services fully spread
 # across individual clusters:
 #   - all services enabled
 #   - individual clusters with configurable size for: core, database/rabbitmq,

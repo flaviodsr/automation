@@ -54,3 +54,4 @@
   template:
     src: "templates/virtConfig.yml"
     dest: "{{ input_model_dir }}/virtConfig.yml"
+  when: qe_env is not defined

@@ -14,7 +14,7 @@
 # under the License.
 #
 #
-# Standard scenario service template with dedicated CLM node: all services enabled
+# Standard scenario service template with standalone CLM node: all services enabled
 # and variable number of controller, SLES compute and RHEL compute nodes.
 #
 # Template parameters:

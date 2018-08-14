@@ -29,7 +29,7 @@ scenario:
   name: mid-scale
   cloud_name: mid-scale
   description: >
-    Multi-cluster scenario with all services enabled, dedicated CLM node, dedicated
+    Multi-cluster scenario with all services enabled, standalone CLM node, dedicated
     clusters with {{ core_nodes }} core nodes, {{ dbmq_nodes }} database/rabbitmq nodes, {{ neutron_nodes }} neutron
     agent nodes, {{ swpac_nodes }} swift proxy/account/container nodes, {{ swobj_nodes }} swift object nodes,
     {{ lmm_nodes }} LMM nodes and with {{ sles_computes }} SLES compute nodes and {{ rhel_computes }} RHEL compute nodes.

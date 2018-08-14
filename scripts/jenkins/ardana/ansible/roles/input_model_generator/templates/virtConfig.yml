@@ -15,6 +15,9 @@
 #
 ---
 
+product:
+  version: 2
+
 images:
 {% for service_group in scenario.service_groups if service_group.member_count|int %}
 {%   if service_group.heat_image_id is defined %}

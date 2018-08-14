@@ -15,4 +15,8 @@
 #
 ---
 
-ses_rgw_port: "{{ hostvars['ardana-' + qe_env].ses_rgw_port }}"
+cloud_media_server: "ibs-mirror.prv.suse.net"
+sles_media_server: "ibs-mirror.prv.suse.net"
+clouddata_server: "provo-clouddata.cloud.suse.de"
+
+ardana_mgmt_subnet: "192.168.24.0/24"

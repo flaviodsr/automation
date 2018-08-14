@@ -20,7 +20,7 @@ controllers: 3
 sles_computes: 3
 rhel_computes: 0
 swobj_devices: 3
-clm_model: dedicated
+clm_model: standalone
 
 scenario:
   name: standard
