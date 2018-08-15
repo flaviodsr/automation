@@ -16,7 +16,7 @@
 ---
 
 - name: Generate input model
-  hosts: localhost
+  hosts: "{{ 'gate-' ~ qe_env if qe_env is defined else 'localhost' }}"
   connection: local
   gather_facts: False
   vars:
