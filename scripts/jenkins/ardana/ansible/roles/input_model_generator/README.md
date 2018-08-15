@@ -215,11 +215,17 @@ Specifying this macro adds the internal load-balancer to the network group.
 account and object servers. This macro expands into the swift component endpoints.
 * _NEUTRON-EXT_: configures the network group as a Neutron flat external network that will be used to provide external access 
 to VMs (via floating IP Addresses). When this macro is specified as a component endpoint, the generated network group
-will be tagged with `neutron.l3_agent.external_network_bridge`.
+will be tagged with `neutron.l3_agent.external_network_bridge` and a `neutron_external_networks` entry is generated and
+added to the Neutron configuration data corresponding to this network.
 * _NEUTRON-VLAN_: configures the network group as a Neutron VLAN provider network. When this macro is specified as a
-component endpoint, the generated network group will be tagged with `neutron.networks.vlan`.
+component endpoint, the generated network group will be tagged with `neutron.networks.vlan` and a VLAN `neutron_provider_networks`
+entry is generated and added to the Neutron configuration data corresponding to this network. A route is also configured
+between the generated Neutron VLAN provider network and the _MANAGEMENT_ network, to provide for maximum flexibility.
+The Neutron VLAN provider network generated for the first _NEUTRON-VLAN_ tagged network group in the list is also the
+one configured for Octavia.
 * _NEUTRON-VXLAN_: configures the network group as a Neutron VXLAN provider network. When this macro is specified as a
 component endpoint, the generated network group will be tagged with `neutron.networks.vxlan`.
+* _DEFAULT-ROUTE_: the network group marked with this tag will have the default route configured for it.
 
 The following example taken from `roles/input_model_generator/vars/templates/network/standard.yml` defines the network
 template included by the `standard` scenario template:
@@ -239,6 +245,7 @@ network_groups:
       - MANAGEMENT
       - INTERNAL-API
       - NEUTRON-VLAN
+      - DEFAULT-ROUTE
 
   - name: EXTERNAL-API
     hostname_suffix: extapi
@@ -283,6 +290,10 @@ the network template, with the component endpoint macros properly expanded into 
 load balancers, routes and neutron network tags.
 * the `networks` elements: a network input model element is generated for each network group listed in the network
 template. The subnet and gateway values are generated.
+* the Neutron `configuration-data`: external neutron networks and provider networks are generated according to the
+`NEUTRON-VLAN` and `NEUTRON-EXT` markers
+* the Octavia `configuration-data`: the Neutron provider network used by the Octavia is set to the first `NEUTRON-VLAN`
+marked network group
 
 ### Disk templates
 

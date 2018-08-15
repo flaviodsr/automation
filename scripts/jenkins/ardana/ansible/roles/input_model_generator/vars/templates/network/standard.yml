@@ -29,6 +29,7 @@ network_groups:
       - MANAGEMENT
       - INTERNAL-API
       - NEUTRON-VLAN
+      - DEFAULT-ROUTE
 
   - name: EXTERNAL-API
     hostname_suffix: extapi

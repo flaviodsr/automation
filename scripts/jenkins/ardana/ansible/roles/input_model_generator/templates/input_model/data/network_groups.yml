@@ -20,7 +20,7 @@
 
   network-groups:
 
-{% set ns = namespace(physnet_id=0) %}
+{% set ns = namespace(physnet_id=0, routes=[]) %}
 {% for network_group in scenario['network_groups'] %}
 
     - name: {{ network_group.name|upper }}
@@ -43,15 +43,6 @@
         # This is the network group that will be used to for
         # management traffic within the cloud. It is used
         # as a default by all component-endpoints.
-        - default
-
-      routes:
-        - OCTAVIA-MGMT-NET
-        - default
-
-{%   elif bm_info is defined and 'EXTERNAL-API' in network_group['component_endpoints'] %}
-        - bind-ext
-      routes:
         - default
 
 {%   elif 'CLM' in network_group['component_endpoints'] %}
@@ -78,9 +69,29 @@
         - swift-account
         - swift-object
         - swift-rsync
+{%   elif bm_info is defined and 'EXTERNAL-API' in network_group.component_endpoints %}
+        - bind-ext
 {%   else %}
         []
 {%   endif %}
+
+{%   set ns.routes=[] %}
+{%   if 'DEFAULT-ROUTE' in network_group.component_endpoints %}
+{%     set _ = ns.routes.append('default') %}
+{%   endif %}
+{%   if 'MANAGEMENT' in network_group.component_endpoints %}
+{%     for neutron_ng in scenario.network_groups if 'NEUTRON-VLAN' in neutron_ng.component_endpoints %}
+{%       set _ = ns.routes.append('NEUTRON-%s-VLAN-NET'|format(neutron_ng.name|upper)) %}
+{%     endfor  %}
+{%   endif %}
+
+{%   if ns.routes %}
+      routes:
+{%     for route in ns.routes %}
+        - {{ route }}
+{%     endfor  %}
+{%   endif %}
+
       load-balancers:
 {%   if 'INTERNAL-API' in network_group['component_endpoints'] %}
 
