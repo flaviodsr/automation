@@ -1,0 +1,11 @@
+---
+
+- name: Add extra repos
+  zypper_repository:
+    repo: "{{ item }}"
+  loop: "{{ extra_repos_list }}"
+
+- name: Refresh all repos
+  zypper_repository:
+    repo: "*"
+    runrefresh: yes

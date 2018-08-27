@@ -18,7 +18,11 @@
 cloudsource: stagingcloud8
 
 # The cloud release is encoded in the cloudsource value
-cloud_release: "cloud{{ cloudsource[-1] }}"
+cloud_release: "cloud{{ cloudsource | regex_search('\\d') }}"
+
+repository_path:
+  cloud8: /srv/www/suse-12.3
+  cloud9: /srv/www/suse-12.4
 
 ntp_servers:
   - ntp.suse.de
