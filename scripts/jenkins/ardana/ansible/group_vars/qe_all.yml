@@ -29,7 +29,7 @@ sles_maint_updates: ""
 rc_notify: True
 
 ardana_ses_post_deploy: False
-rhel_enabled: "{{ rhel_computes is defined and rhel_computes > 0 }}"
+rhel_enabled: "{{ rhel_computes is defined and rhel_computes | int > 0 }}"
 
 rc_channels:
   qe002: "cloud-qe-hlm002"
