@@ -15,6 +15,9 @@
 #
 ---
 
-test_repository_url: ''
-cloud_repository: "{{ cloudsource_repos[cloudsource] }}"
-cloudsource_url: "{{ repos_url }}/{{ cloud_repository }}"
+- name: Add extra repos
+  zypper_repository:
+    repo: "{{ item }}"
+  loop: "{{ extra_repos_list }}"
+  notify:
+    - Refresh all repos
