@@ -23,10 +23,10 @@ rc_msg_fields_started:
     value: "{{ hostvars['ardana-' + qe_env].ansible_host }}"
     short: True
   - title: Started by
-    value: "{{ lookup('env', 'BUILD_URL') | default(lookup('env', 'USER'), true) }}"
+    value: "{{ jenkins_build_url_msg }}"
     short: False
   - title: Ardana log stream
-    value: "http://{{ hostvars['ardana-' + qe_env].ansible_host }}:9091/"
+    value: "{{ ansible_log_stream_msg }}"
     short: True
 
 rc_msg_fields_finished:
@@ -37,8 +37,8 @@ rc_msg_fields_finished:
     value: "{{ rc_state }}"
     short: True
   - title: Built by
-    value: "{{ lookup('env', 'BUILD_URL') | default(lookup('env', 'USER'), true) }}"
+    value: "{{ jenkins_build_url_msg }}"
     short: False
   - title: Log
-    value: "{{ ansible_log_url if lookup('env', 'BUILD_URL') else 'Not available' }}"
+    value: "{{ ansible_log_url_msg if lookup('env', 'BUILD_URL') else 'Not available' }}"
     short: False
