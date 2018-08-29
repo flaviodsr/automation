@@ -16,9 +16,12 @@
 ---
 
 - job:
-    name: ardana-iverify
+    name: cloud-qe-ardana-tempest
     description: |
-      Run IVerify against the specified QE environment.
+      Run tempest against the specified QE environment
+    workspace: qe-cloud-ardana-tempest-${qe_env}
+    concurrent: true
+    node: cloud-ardana-ci
     wrappers:
       - workspace-cleanup:
           dirmatch: false
@@ -26,7 +29,7 @@
       - ansicolor:
           colormap: xterm
       - build-name:
-          name: ${qe_env}-${JOB_NAME}
+          name: ${qe_env}-${JOB_NAME}-${tempest_run_filter}
     publishers:
       - archive:
           artifacts: .artifacts/**
@@ -38,10 +41,35 @@
           browser: auto
           url: ${ardana_deploy_repo}
     parameters:
-      - label:
+      - string:
           name: qe_env
-          description: Target QE environment to run IVerify
-          matching-label: allCases
+          default: ''
+          description: Target QE environment to run tempest
+      - choice:
+          choices:
+            - smoke
+            - smoke-upstream
+            - defcore
+            - full
+            - ci
+            - compute
+            - barbican
+            - designate
+            - identity
+            - lbaas
+            - monasca
+            - network
+            - neutron-api
+            - periodic
+            - periodic-virtual
+            - refstack
+            - swift
+            - tests2skip
+            - tests-ci
+            - upgrade-ci
+            - upgrade
+          description: Test filter for tempest
+          name: tempest_run_filter
       - string:
           default: https://github.com/SUSE-Cloud/automation.git
           description: Git repository used for the deployment automation.
@@ -59,4 +87,8 @@
           #!/bin/bash
 
           export ANSIBLE_FORCE_COLOR=true
-          ansible-playbook run-ardana-iverify.yml -e "qe_env=$qe_env rc_notify=$rc_notify"
+
+          source /opt/ansible/bin/activate
+          cd scripts/jenkins/ardana/ansible
+          ansible-playbook run-ardana-tempest.yml -e "qe_env=$qe_env rc_notify=$rc_notify \
+            tempest_run_filter=$tempest_run_filter"

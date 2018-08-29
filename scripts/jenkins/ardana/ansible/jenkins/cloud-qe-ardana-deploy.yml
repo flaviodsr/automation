@@ -16,10 +16,13 @@
 ---
 
 - job:
-    name: ardana-deploy
+    name: cloud-qe-ardana-deploy
     description: |
       Deploy and run Ardana on a specified QE environment.
       Deployment will include cloud/sles maintenance updates when provided.
+    workspace: cloud-qe-ardana-deploy-${qe_env}
+    concurrent: true
+    node: cloud-ardana-ci
     wrappers:
       - workspace-cleanup:
           dirmatch: false
@@ -39,10 +42,10 @@
           browser: auto
           url: ${ardana_deploy_repo}
     parameters:
-      - label:
+      - string:
           name: qe_env
+          default: ''
           description: Target QE environment to deploy
-          matching-label: allCases
       - choice:
           name: cloud_source
           choices:
@@ -72,19 +75,19 @@
             integrated - the first controller node will also be used as a CLM node
       - string:
           name: controllers
-          default: 3
+          default: '3'
           description: Number of nodes used as controller
       - string:
           name: sles_computes
-          default: 2
+          default: '2'
           description: Number of SLES compute nodes
       - string:
           name: rhel_computes
-          default: 0
+          default: '0'
           description: Number of RHEL compute nodes
       - bool:
           name: ses_enabled
-          default: false
+          default: true
           description: Configure SES backend for glance, cinder, cinder-backup, nova and swift
       - string:
           name: cloud_maint_updates

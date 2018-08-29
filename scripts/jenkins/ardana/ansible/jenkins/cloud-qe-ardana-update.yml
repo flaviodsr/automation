@@ -16,9 +16,12 @@
 ---
 
 - job:
-    name: ardana-update
+    name: cloud-qe-ardana-update
     description: |
       Apply the provided cloud/sles maintenance updates on the specified QE environment
+    workspace: cloud-qe-ardana-update-${qe_env}
+    concurrent: true
+    node: cloud-ardana-ci
     wrappers:
       - workspace-cleanup:
           dirmatch: false
@@ -67,7 +70,7 @@
           #!/bin/bash
 
           export ANSIBLE_FORCE_COLOR=true
-          
+
           source /opt/ansible/bin/activate
           cd scripts/jenkins/ardana/ansible
           ansible-playbook ardana-update.yml -e "qe_env=$qe_env rc_notify=$rc_notify \
