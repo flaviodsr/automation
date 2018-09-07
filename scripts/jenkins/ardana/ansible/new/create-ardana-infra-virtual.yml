@@ -1,0 +1,5 @@
+---
+
+- import_playbook: generate-heat-template.yml
+
+- import_playbook: heat-stack.yml

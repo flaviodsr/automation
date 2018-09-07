@@ -1,0 +1,25 @@
+---
+
+- name: Copy RHEL repo playbooks
+  copy:
+    src: "enable-centos-rpms-on-rhel/"
+    dest: "{{ ardana_openstack_path }}/"
+  register: rhel_plays
+
+- name: Commit RHEL repo playbooks
+  shell: |
+    git add -A
+    git commit -m 'Add RHEL repo playbooks'
+  args:
+    chdir: "{{ ardana_openstack_path }}"
+  when: rhel_plays.changed
+
+- name: Run playbooks to enable RHEL repo on deployer
+  command: "ansible-playbook -i hosts/localhost {{ item }}.yml"
+  args:
+    chdir: "{{ ardana_openstack_path }}"
+  loop:
+    - "set-deployer-rhel-repo"
+    - "ready-deployment"
+  register: ardana_rhel_plays
+  when: not (ardana_rhel_plays | default({})) is failed

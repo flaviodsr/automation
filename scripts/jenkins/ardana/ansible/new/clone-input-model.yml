@@ -1,0 +1,18 @@
+---
+
+- name: Get Ardana Input Model from repo
+  hosts: localhost
+  connection: local
+  gather_facts: False
+
+  tasks:
+    - block:
+        - include_role:
+            name: input_model_clone
+      always:
+        - include_role:
+            name: jenkins_artifacts
+          when: lookup("env", "WORKSPACE")
+          vars:
+            jenkins_artifacts_to_collect:
+              - "{{ input_model_path }}"

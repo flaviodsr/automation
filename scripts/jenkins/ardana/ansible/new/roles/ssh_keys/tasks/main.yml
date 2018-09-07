@@ -1,0 +1,10 @@
+---
+
+- name: Copy SSH keys
+  authorized_key:
+    user: root
+    state: present
+    key: "{{ item.1 }}"
+  loop: "{{ ssh_pub_keys | subelements('keys') }}"
+  loop_control:
+    label: "{{ item.0.name }}"

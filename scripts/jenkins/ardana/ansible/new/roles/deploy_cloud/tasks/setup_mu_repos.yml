@@ -1,0 +1,12 @@
+---
+
+# FIXME: MU url on template
+- name: Copy maintenance update playbook
+  template:
+    src: "maint_updates.yml.j2"
+    dest: "{{ ardana_scratch_path }}/_maint_updates.yml"
+
+- name: Add MU repos to all nodes
+  command: "ansible-playbook _maint_updates.yml"
+  args:
+    chdir: "{{ ardana_scratch_path }}"

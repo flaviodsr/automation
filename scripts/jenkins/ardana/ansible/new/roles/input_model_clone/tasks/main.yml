@@ -1,0 +1,14 @@
+---
+
+- name: Clone input model git repo
+  git:
+    repo: "{{ git_input_model_repo }}"
+    dest: "{{ git_input_model_dest }}"
+    version: "{{ git_input_model_branch }}"
+    force: yes
+  delegate_to: localhost
+
+- name: Copy input model
+  synchronize:
+    src: "{{ git_input_model_dest }}/{{ git_input_model_path }}/{{ model }}/"
+    dest: "{{ input_model_path }}/"

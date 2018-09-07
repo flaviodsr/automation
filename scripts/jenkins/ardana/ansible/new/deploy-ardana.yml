@@ -1,0 +1,13 @@
+---
+
+- import_playbook: generate-input-model.yml
+
+- import_playbook: create-ardana-infra.yml
+
+- import_playbook: bootstrap-clm.yml
+
+- import_playbook: prepare-ardana-nodes.yml
+
+- import_playbook: deploy-cloud.yml
+
+- import_playbooks: run-tempest.yml

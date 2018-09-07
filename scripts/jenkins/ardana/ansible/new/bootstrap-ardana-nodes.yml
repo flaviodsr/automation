@@ -1,0 +1,4 @@
+---
+
+
+- import_playbook: bootstrap-ardana-nodes-{{ (ardana_env in groups['qe_all']) | ternary('physical', 'virtual') }}.yml

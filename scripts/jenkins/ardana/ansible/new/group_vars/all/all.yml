@@ -1,0 +1,42 @@
+#
+# (c) Copyright 2018 SUSE LLC
+#
+# Licensed under the Apache License, Version 2.0 (the "License"); you may
+# not use this file except in compliance with the License. You may obtain
+# a copy of the License at
+#
+# http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+# WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+# License for the specific language governing permissions and limitations
+# under the License.
+#
+---
+
+# The cloud release is encoded in the cloudsource value
+cloud_release: "cloud{{ cloudsource | regex_search('\\d') }}"
+rhel_enabled: "{{ rhel_computes is defined and rhel_computes | int > 0 }}"
+
+workspace_path: "{{ lookup('env', 'WORKSPACE') | default('.', true) }}"
+input_model_path: "{{ workspace_path }}/input_model"
+heat_template_file: "{{ workspace_path }}/heat-stack-{{ (model is defined and model != '') | ternary(model, scenario_name) }}.yml"
+
+is_physical_deploy: "{{ ardana_env in groups['qe_all'] }}"
+rc_notify: False
+
+want_caasp: False
+virt_config_file_name: "{{ want_caasp | ternary('caasp.yml', workspace_path ~ '/' ~ scenario_name ~ '-virt-config.yml') }}"
+virt_config_file: "{{ (virt_config_name is defined and virt_config_name != '') | ternary(virt_config_name, virt_config_file_name) }}"
+
+jjb_file: "jenkins/{{ lookup('env', 'JOB_NAME') }}.yml"
+
+ntp_servers:
+  - ntp.suse.de
+  - ntp0.suse.de
+  - ntp1.suse.de
+  - ntp3.suse.de
+
+dns_servers:
+  - 147.2.2.2 # nsnwb.microfocus.com

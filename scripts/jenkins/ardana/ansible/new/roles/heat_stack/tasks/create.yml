@@ -1,0 +1,11 @@
+---
+
+- name: Create stack '{{ heat_stack_name }}'
+  ecp_os_stack:
+    cloud: "{{ os_cloud }}"
+    name: "{{ heat_stack_name }}"
+    state: present
+    template: "{{ heat_template_file }}"
+    api_timeout: "{{ api_timeout }}"
+    wait: yes
+  register: heat_stack_create

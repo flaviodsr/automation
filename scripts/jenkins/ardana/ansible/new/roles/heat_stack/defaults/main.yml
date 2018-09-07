@@ -1,0 +1,7 @@
+---
+
+os_cloud: "engcloud-cloud-ci"
+heat_action: "create"
+api_timeout: "3600"
+
+heat_stack_name: "openstack-ardana-{{ ardana_env }}"

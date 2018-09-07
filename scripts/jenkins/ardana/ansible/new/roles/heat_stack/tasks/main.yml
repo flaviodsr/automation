@@ -1,0 +1,14 @@
+---
+
+- name: Check if stack already exists
+  command: |
+    openstack --os-cloud {{ os_cloud }} stack show {{ heat_stack_name }} \
+      -c stack_status -f value
+  register: get_stack
+  failed_when: false
+
+- include_tasks: delete.yml
+  when: get_stack.stdout != ''
+
+- include_tasks: create.yml
+  when: "heat_action == 'create'"
