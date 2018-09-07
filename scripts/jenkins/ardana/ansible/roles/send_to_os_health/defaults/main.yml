@@ -16,6 +16,7 @@
 ---
 
 jenkins_artifacts_url: "{{ lookup('env', 'BUILD_URL') + 'artifact/.artifacts/' if lookup('env', 'BUILD_URL') else 'NA' }}"
+clouddata_server: "provo-clouddata.cloud.suse.de"
 
 subunit2sql_venv: "/opt/subunit2sql"
 os_health_server: "10.86.0.167"

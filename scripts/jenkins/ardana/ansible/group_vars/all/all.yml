@@ -15,10 +15,17 @@
 #
 ---
 
-cloudsource: stagingcloud8
-
 # The cloud release is encoded in the cloudsource value
-cloud_release: "cloud{{ cloudsource[-1] }}"
+cloud_release: "cloud{{ cloudsource | regex_search('\\d') }}"
+rhel_enabled: "{{ rhel_computes is defined and rhel_computes | int > 0 }}"
+
+workspace_path: "{{ lookup('env', 'WORKSPACE') | default('.', true) }}"
+input_model_path: "{{ workspace_path }}/input_model"
+
+is_physical_deploy: "{{ ardana_env in groups['qe_all'] }}"
+rc_notify: False
+
+jjb_file: "jenkins/{{ lookup('env', 'JOB_NAME') }}.yml"
 
 ntp_servers:
   - ntp.suse.de
