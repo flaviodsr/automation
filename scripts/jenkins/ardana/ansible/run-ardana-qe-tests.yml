@@ -17,17 +17,17 @@
 ---
 
 - name: Run '{{ test_name }}' test and collect results
-  hosts: ardana-{{ qe_env }}
+  hosts: "{{ ardana_env }}"
   remote_user: ardana
   gather_facts: True
   vars:
     task: "ardana-qe-tests"
 
   vars_prompt:
-    - name: "qe_env"
+    - name: "ardana_env"
       prompt: "Target envinroment to run tests"
       private: no
-      when: qe_env not defined
+      when: ardana_env not defined
     - name: "test_name"
       prompt: "Test to run"
       private: no
