@@ -13,25 +13,14 @@
 # License for the specific language governing permissions and limitations
 # under the License.
 #
-
 ---
 
 - name: Run '{{ test_name }}' test and collect results
-  hosts: ardana-{{ qe_env }}
+  hosts: "{{ ardana_env }}"
   remote_user: ardana
   gather_facts: True
   vars:
     task: "ardana-qe-tests"
-
-  vars_prompt:
-    - name: "qe_env"
-      prompt: "Target envinroment to run tests"
-      private: no
-      when: qe_env not defined
-    - name: "test_name"
-      prompt: "Test to run"
-      private: no
-      when: test_name not defined
 
   pre_tasks:
     - include_role:

@@ -18,3 +18,4 @@
 - name: Run test '{{ test_name }}'
   command: "{{ ardana_qe_test_script }} {{ ardana_qe_test_script_args | default('') }} \
     {{ run_filter_file | default('') }}"
+  changed_when: false
