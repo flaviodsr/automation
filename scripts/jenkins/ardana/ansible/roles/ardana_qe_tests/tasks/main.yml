@@ -47,3 +47,8 @@
     - include_tasks: qe_test_requires.yml
       vars:
         ardana_qe_tests_requires_state: "absent"
+
+    - name: Fail if any '{{ test_name }}' test has failed
+      fail:
+        msg: "{{ ardana_qe_test_results.failed }} tests failed."
+      when: ardana_qe_test_results.failed | int > 0

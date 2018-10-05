@@ -50,31 +50,10 @@ pipeline {
                ansible_playbook setup-ssh-access.yml -e @input.yml
             ''')
           }
-        }
-      }
-    }
-
-    stage('Run tests') {
-      steps {
-        script {
           def test_list = env.test_list.split(',')
           for (test in test_list) {
             catchError {
               stage(test) {
-                // def slaveJob = build job: 'openstack-ardana-qa-tests', parameters: [
-                //   string(name: 'ardana_env', value: "$ardana_env"),
-                //   string(name: 'test_name', value: "${test}"),
-                //   string(name: 'test_branch', value: "$test_branch"),
-                //   string(name: 'run_filter', value: "$run_filter"),
-                //   string(name: 'dpdk', value: "$dpdk"),
-                //   string(name: 'dpdk_br', value: "$dpdk_br"),
-                //   string(name: 'octavia', value: "$octavia"),
-                //   string(name: 'esx', value: "$esx"),
-                //   string(name: 'rc_notify', value: "$rc_notify"),
-                //   string(name: 'git_automation_repo', value: "$git_automation_repo"),
-                //   string(name: 'git_automation_branch', value: "$git_automation_branch"),
-                //   string(name: 'reuse_node', value: "${NODE_NAME}")
-                // ], propagate: true, wait: true
                 timeout(time: 120) {
                   sh("""
                     cd \$SHARED_WORKSPACE
@@ -84,13 +63,17 @@ pipeline {
                   """)
                 }
               }
-              archiveArtifacts artifacts: ".artifacts/**/${test}*"
-              junit testResults: ".artifacts/${test}.xml"
             }
+            archiveArtifacts artifacts: ".artifacts/**/${test}*"
+            junit testResults: ".artifacts/${test}.xml"
           }
-          cleanWs()
         }
       }
+    }
+  }
+  post {
+    always {
+      cleanWs()
     }
   }
 }
