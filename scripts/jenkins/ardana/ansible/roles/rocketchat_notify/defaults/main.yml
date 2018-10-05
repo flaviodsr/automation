@@ -34,6 +34,7 @@ rc_channel_id_query: "json.channels[?name=='{{ rc_channels[ardana_env] }}']._id"
 rc_deploy_announcement_file: "~/deploy_finished-{{ ardana_env }}.rc"
 
 rc_msg_title: "{{ rc_task | upper }} {{ rc_action }}"
+rc_msg_color: "{{ 'danger' if rc_state == 'Failed' else 'good' if rc_state == 'Success' else '#BDC3C7' }}"
 
 # IVerify vars
 iverify_failed_tests:
@@ -44,7 +45,6 @@ tempest_run_filter: "smoke"
 os_health_server: "10.86.0.167"
 os_health_url: "http://{{ os_health_server }}/#/job/{{ os_health_build_name }}"
 os_health_url_msg: "[{{ os_health_url }}]({{ os_health_url }})"
-os_health_build_name: "{{ lookup('env', 'BUILD_DISPLAY_NAME') | default('NA', true) | replace(': ', '-') | replace('#', '') }}"
 
 ansible_log_url: "{{ lookup('env', 'BUILD_URL') }}artifact/.artifacts/ansible.log"
 ansible_log_url_msg: "[{{ ansible_log_url }}]({{ ansible_log_url }})"
