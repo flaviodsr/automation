@@ -23,58 +23,31 @@ pipeline {
     stage('Setup workspace') {
       steps {
         script {
-          // Set this variable to be used by upstream builds
-          env.blue_ocean_buildurl = env.RUN_DISPLAY_URL
-          if (ardana_env == '') {
-            error("Empty 'ardana_env' parameter value.")
-          }
-          currentBuild.displayName = "#${BUILD_NUMBER}: ${ardana_env}"
-          // Use a shared workspace folder for all jobs running on the same
-          // target 'ardana_env' cloud environment
-          env.SHARED_WORKSPACE = sh (
-            returnStdout: true,
-            script: 'echo "$(dirname $WORKSPACE)/shared/${ardana_env}"'
-          ).trim()
-          if (reuse_node == '') {
-            sh('''
-              rm -rf $SHARED_WORKSPACE
-              mkdir -p $SHARED_WORKSPACE
-
-              # archiveArtifacts and junit don't support absolute paths, so we have to to this instead
-              ln -s ${SHARED_WORKSPACE}/.artifacts ${WORKSPACE}
-
-              cd $SHARED_WORKSPACE
-              git clone $git_automation_repo --branch $git_automation_branch automation-git
-              source automation-git/scripts/jenkins/ardana/jenkins-helper.sh
-              ansible_playbook load-job-params.yml
-              ansible_playbook setup-ssh-access.yml -e @input.yml
-            ''')
-          }
+          echo "Done"
         }
       }
     }
 
     stage('Run Tempest') {
       steps {
-        sh('''
-          cd $SHARED_WORKSPACE
-          source automation-git/scripts/jenkins/ardana/jenkins-helper.sh
-          ansible_playbook run-tempest.yml -e @input.yml
-        ''')
-      }
-    }
-  }
-
-  post {
-    always {
-      script {
-        // Let the upstream job archive artifacts and collect test results
-        if (reuse_node == '') {
-          archiveArtifacts artifacts: ".artifacts/**/*", allowEmptyArchive: true
-          junit testResults: ".artifacts/*.xml", allowEmptyResults: true
+        script {
+          sh('exit 1')
         }
       }
-      cleanWs()
     }
+
+    stage('Run QA tests') {
+      when {
+        // For extended-choice parameter we also need to check if the variable
+        // is defined
+        expression { env.qa_test_list != null && qa_test_list != '' }
+      }
+      steps {
+        script {
+          echo "Done"
+        }
+      }
+    }
+
   }
 }
