@@ -32,6 +32,7 @@ is_physical_deploy: "{{ ardana_env in groups['qe_all'] }}"
 rc_notify: False
 
 jjb_file: "../../../../jenkins/ci.suse.de/{{ lookup('env', 'JOB_NAME') }}.yaml"
+pkg_report_dir: "/tmp/pkg_report"
 
 suse_release: "suse-{{ ansible_distribution_version }}"
 local_repos_base_dir: "/srv/www/{{ suse_release }}/{{ ansible_architecture }}/repos"

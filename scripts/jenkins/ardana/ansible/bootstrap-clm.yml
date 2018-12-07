@@ -64,3 +64,10 @@
         - name: Stop if something failed
           fail:
             msg: "{{ task }} failed."
+      always:
+        - include_role:
+            name: jenkins_artifacts
+          when: lookup("env", "WORKSPACE")
+          vars:
+            jenkins_artifacts_to_collect:
+              - src: "{{ pkg_report_dir }}"

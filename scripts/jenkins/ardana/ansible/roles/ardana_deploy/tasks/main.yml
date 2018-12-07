@@ -84,17 +84,26 @@
     - not update_after_deploy
     - maint_updates_list | length
 
-- name: Run playbooks from "{{ ardana_scratch_path }}"
-  command: "ansible-playbook {{ item.play }}"
-  args:
-    chdir: "{{ ardana_scratch_path }}"
-  loop: "{{ ardana_scratch_playbooks }}"
-  register: ansible_scratch_plays
-  when:
-    - item.when | default(True)
-    - not (ansible_scratch_plays | default({})) is failed
-  loop_control:
-    label: "{{ item.play }}"
+- include_tasks: pkg_report.yml
+  vars:
+    state: "pre"
+
+- block:
+    - name: Run playbooks from "{{ ardana_scratch_path }}"
+      command: "ansible-playbook {{ item.play }}"
+      args:
+        chdir: "{{ ardana_scratch_path }}"
+      loop: "{{ ardana_scratch_playbooks }}"
+      register: ansible_scratch_plays
+      when:
+        - item.when | default(True)
+        - not (ansible_scratch_plays | default({})) is failed
+      loop_control:
+        label: "{{ item.play }}"
+  always:
+    - include_tasks: pkg_report.yml
+      vars:
+        state: "post"
 
 - name: Get public vip
   shell: grep  'public-KEY-API-extapi' /etc/hosts | awk {'print $1'}
@@ -102,7 +111,7 @@
 
 - name: Update /etc/hosts
   lineinfile:
-    dest=/etc/hosts
-    line="{{ public_vip.stdout }}    {{ external_name }}"
+    dest: "/etc/hosts"
+    line: "{{ public_vip.stdout }}    {{ external_name }}"
   become: yes
   when: external_name | default('') != ''

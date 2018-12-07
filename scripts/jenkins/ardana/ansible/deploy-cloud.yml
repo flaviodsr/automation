@@ -71,6 +71,10 @@
         - include_role:
             name: jenkins_artifacts
           when: lookup("env", "WORKSPACE")
+          vars:
+            jenkins_artifacts_to_collect:
+              - src: "~/.ansible/ansible.log"
+              - src: "{{ pkg_report_dir }}"
 
   post_tasks:
     - include_role:
