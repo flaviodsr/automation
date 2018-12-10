@@ -67,3 +67,5 @@ rc_channels:
   qe2023: "cloud-qe-hlm2023par"
   scale: "cloud-qe-scale"
   qa4: "cloud-qe-qa4"
+
+ses_cluster_id: "qe1"
