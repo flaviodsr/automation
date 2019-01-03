@@ -69,8 +69,12 @@ pipeline {
             // ECP API only while actually deleting the stack
             ardana_lib.ansible_playbook('heat-stack', "-e heat_action=monitor")
             lock(resource: 'cloud-ECP-API') {
-              timeout(time: 5, unit: 'MINUTES') {
-                ardana_lib.ansible_playbook('heat-stack', "-e heat_action=delete -e monitor_stack_after_delete=False")
+              try {
+                timeout(time: 5, unit: 'MINUTES') {
+                  ardana_lib.ansible_playbook('heat-stack', "-e heat_action=delete -e monitor_stack_after_delete=False")
+                }
+              } catch (org.jenkinsci.plugins.workflow.steps.TimeoutStepExecution.ExceededTimeout e) {
+                error('Timeout exceeded!')
               }
             }
             ardana_lib.ansible_playbook('heat-stack', "-e heat_action=monitor")
@@ -86,8 +90,17 @@ pipeline {
         script {
           retry(1) {
             lock(resource: 'cloud-ECP-API') {
-              timeout(time: 10, unit: 'MINUTES') {
-                ardana_lib.ansible_playbook('heat-stack')
+              try {
+                timeout(time: 1, unit: 'MINUTES') {
+                  ardana_lib.ansible_playbook('heat-stack')
+                }
+              } catch (org.jenkinsci.plugins.workflow.steps.FlowInterruptedException e) {
+                cause = e.causes.get(0)
+                if (cause instanceof org.jenkinsci.plugins.workflow.steps.TimeoutStepExecution.ExceededTimeout) {
+                  error('Timeout exceeded!')
+                } else {
+                  throw e
+                }
               }
             }
           }
