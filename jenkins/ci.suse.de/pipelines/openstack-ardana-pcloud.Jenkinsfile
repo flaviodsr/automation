@@ -94,7 +94,9 @@ pipeline {
       }
     }
     success{
-      ardana_lib.get_deployer_ip()
+      script {
+        ardana_lib.get_deployer_ip()
+      }
     }
     cleanup {
       cleanWs()

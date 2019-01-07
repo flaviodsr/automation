@@ -21,7 +21,7 @@ rc_announcement_finished: "{{ 'READY FOR TESTING: ' if rc_state == 'Success' els
 
 _announcement_full: "{{ _announcement_data + _announcement_mu if _mu_available else _announcement_data }}"
 
-_announcement_data: "{{ cloudsource }} - {{ rc_im_name }}{{ _announcement_ses }}"
+_announcement_data: "{{ cloudsource | default(cloud_release) }} - {{ rc_im_name }}{{ _announcement_ses }}"
 _announcement_mu: "{{ ' - MU: ' + maint_updates if maint_updates is defined else '' }}"
 
 _announcement_ses: "{{ ses_enabled | ternary('-SES', '') }}"
@@ -42,7 +42,7 @@ _msg_fields_started:
     value: "{{ hostvars[ardana_env].ansible_host if ardana_env in groups['all'] else 'NA' }}"
     short: True
   - title: cloudsource
-    value: "{{ cloudsource }}"
+    value: "{{ cloudsource | default(cloud_release) }}"
     short: True
   - title: Input model
     value: "{{ rc_im_name }}"
@@ -65,7 +65,7 @@ _msg_fields_finished:
     value: "{{ hostvars[ardana_env].ansible_host if ardana_env in groups['all'] else 'NA' }}"
     short: True
   - title: cloudsource
-    value: "{{ cloudsource }}"
+    value: "{{ cloudsource | default(cloud_release) }}"
     short: True
   - title: Input model
     value: "{{ rc_im_name }}"
