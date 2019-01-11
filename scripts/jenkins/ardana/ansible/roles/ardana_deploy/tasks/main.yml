@@ -87,6 +87,8 @@
     - not (ansible_scratch_plays | default({})) is failed
   loop_control:
     label: "{{ item.play }}"
+  async: 21600
+  poll: 120
 
 - name: Get public vip
   shell: grep  'public-KEY-API-extapi' /etc/hosts | awk {'print $1'}
