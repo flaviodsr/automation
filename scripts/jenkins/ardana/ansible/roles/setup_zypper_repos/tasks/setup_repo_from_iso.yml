@@ -19,7 +19,7 @@
   get_url:
    url: "{{ media[cloud_release].url }}/{{ media[cloud_release].iso }}"
    dest: "{{ media[cloud_release].dest }}"
-   mode: 0440
+   mode: 0444
   register: download_media
   until: download_media is succeeded
   retries: 5
