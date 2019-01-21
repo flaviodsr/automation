@@ -19,7 +19,7 @@
   when: tempest_run_filter == 'defcore'
 
 - include_tasks: import_octavia_image.yml
-  when: tempest_run_filter == 'lbaas'
+  when: tempest_run_filter in ['lbaas', 'smoke']
 
 - include_tasks: run_tempest.yml
 
