@@ -14,6 +14,7 @@ pipeline {
     lock(label: reserve_env == 'true' ? ardana_env:'dummy-resource',
          variable: 'reserved_env',
          quantity: reserve_env == 'true' ? 1:0 )
+    timeout(time: build_timeout, unit: 'SECONDS')
   }
 
   agent {

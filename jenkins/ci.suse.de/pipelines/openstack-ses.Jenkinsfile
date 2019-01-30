@@ -6,6 +6,9 @@ pipeline {
   options {
     // skip the default checkout, because we want to use a custom path
     skipDefaultCheckout()
+    // Persist artifacts and console output for the specific number of recent Pipeline runs
+    buildDiscarder(logRotator(numToKeepStr: '200'))
+    timeout(time: 3, unit: 'MINUTES')
     timestamps()
   }
 
