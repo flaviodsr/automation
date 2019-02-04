@@ -31,8 +31,34 @@
         group: tempest
         mode: 0644
       become: yes
-      with_items: "{{ tempest_qe_run_filters }}"
-      when: tempest_run_filter in tempest_qe_run_filters
+      loop: "{{ tempest_qe_run_filters }}"
+      when: (tempest_run_filter == item) or
+        (tempest_run_filter ~ "_serial" == item)
+
+    - name: Install missing test package
+      zypper:
+        name: "{{ item }}"
+      become: yes
+      loop:
+        - python-ceilometer
+        - python-neutron-fwaas
+
+    - name: Create cert symlink required by Freezer tempest
+      file:
+        src: "/etc/ssl/ca-bundle.pem"
+        dest: "/etc/ssl/certs/ca-certificates.crt"
+        state: link
+      become: yes
+      when: tempest_run_filter == 'freezer'
+
+    - name: Add extra settings to tempest config
+      ini_file:
+        path: "/opt/stack/tempest/configs/tempest_region1.conf"
+        section: "{{ item.section }}"
+        option: "{{ item.option }}"
+        value: "{{ item.value }}"
+      loop: "{{ tempest_config }}"
+      become: yes
 
     - name: Create cert symlink required by Freezer tempest
       file:

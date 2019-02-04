@@ -1,0 +1,92 @@
+{#
+#
+# (c) Copyright 2018 SUSE LLC
+#
+# Licensed under the Apache License, Version 2.0 (the "License"); you may
+# not use this file except in compliance with the License. You may obtain
+# a copy of the License at
+#
+# http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+# WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+# License for the specific language governing permissions and limitations
+# under the License.
+#
+#}
+
+# Run all heat tests
++heat_integrationtests\.*
+
+# Known failures
+# ERROR: Stack Adopt is not supported.
+-heat_integrationtests.functional.test_aws_stack.AwsStackTest.test_nested_stack_adopt_fail
+-heat_integrationtests.functional.test_aws_stack.AwsStackTest.test_nested_stack_adopt_ok
+-heat_integrationtests.functional.test_resource_group.ResourceGroupAdoptTest.test_adopt
+-heat_integrationtests.functional.test_template_resource.TemplateResourceAdoptTest.test_adopt
+
+# ERROR: Stack Abandon is not supported.
+-heat_integrationtests.functional.test_template_resource.TemplateResourceAdoptTest.test_abandon
+
+# Required extension trunk in neutron service is not available.
+-heat_integrationtests.functional.test_create_update_neutron_trunk.UpdateTrunkTest.test_add_a_second_sub_port
+-heat_integrationtests.functional.test_create_update_neutron_trunk.UpdateTrunkTest.test_add_first_sub_port
+-heat_integrationtests.functional.test_create_update_neutron_trunk.UpdateTrunkTest.test_remove_last_sub_port_from_trunk
+-heat_integrationtests.functional.test_create_update_neutron_trunk.UpdateTrunkTest.test_remove_sub_port_from_trunk
+-heat_integrationtests.functional.test_create_update_neutron_trunk.UpdateTrunkTest.test_update_existing_sub_port_on_trunk
+-heat_integrationtests.functional.test_create_update_neutron_trunk.UpdateTrunkTest.test_update_trunk_name_and_description
+
+# LBaaS not working on virtual cloud
+-heat_integrationtests.functional.test_lbaasv2\.*
+-heat_integrationtests.scenario.test_autoscaling_lbv2.AutoscalingLoadBalancerv2Test.test_autoscaling_loadbalancer_neutron
+
+# [Errno 111] Connection refused
+-heat_integrationtests.functional.test_notifications.NotificationTest.test_asg_notifications
+-heat_integrationtests.functional.test_notifications.NotificationTest.test_basic_notifications
+
+# heat-manage: command not found
+-heat_integrationtests.functional.test_purge.PurgeTest.test_purge
+
+# No section: 'heat_api_cfn'
+-heat_integrationtests.functional.test_reload_on_sighup.ReloadOnSighupTest.test_api_cfn_reload_on_sighup
+
+# No section: 'heat_api_cloudwatch'
+-heat_integrationtests.functional.test_reload_on_sighup.ReloadOnSighupTest.test_api_cloudwatch_on_sighup
+
+# No section: 'heat_api'
+-heat_integrationtests.functional.test_reload_on_sighup.ReloadOnSighupTest.test_api_reload_on_sighup
+
+# Zaqar messaging service not supported
+-heat_integrationtests.functional.test_event_sinks.ZaqarEventSinkTest.test_events
+-heat_integrationtests.functional.test_waitcondition.ZaqarWaitConditionTest.test_signal_queues
+-heat_integrationtests.functional.test_software_config.ZaqarSignalTransportTest.test_signal_queues
+
+# [u'foo', u'hidden'] matches Contains('hidden'): Hidden stack can be seen
+-heat_integrationtests.functional.test_stack_tags.StackTagTest.test_hidden_stack
+
+# The Stack (AdminActionsTest-2106209092) could not be found.
+-heat_integrationtests.functional.test_admin_actions.AdminActionsTest.test_admin_complex_stack_actions
+-heat_integrationtests.functional.test_admin_actions.AdminActionsTest.test_admin_simple_stack_actions
+
+# Error validating value 'heat-net': Unable to find network with name or id 'heat-net'
+-heat_integrationtests.functional.test_create_update.UpdateStackTest.test_stack_update_with_replacing_userdata
+-heat_integrationtests.functional.test_replace_deprecated.ReplaceDeprecatedResourceTest.test_replace_software_deployments
+-heat_integrationtests.functional.test_encrypted_parameter.EncryptedParametersTest.test_db_encryption
+-heat_integrationtests.functional.test_snapshot_restore.StackSnapshotRestoreTest.test_stack_snapshot_restore
+-heat_integrationtests.functional.test_os_wait_condition.OSWaitCondition.test_create_stack_with_multi_signal_waitcondition
+-heat_integrationtests.functional.test_translation.TestTranslation.test_value_from_nested_stack
+-heat_integrationtests.scenario.test_server_cfn_init.CfnInitIntegrationTest.test_server_cfn_init
+-heat_integrationtests.functional.test_software_config.ParallelDeploymentsTest.test_deployments_metadata
+-heat_integrationtests.functional.test_software_config.ParallelDeploymentsTest.test_deployments_timeout_failed
+-heat_integrationtests.functional.test_validation.StackValidationTest.test_stack_validate_provider_references_parent_resource
+-heat_integrationtests.scenario.test_server_software_config.SoftwareConfigIntegrationTest.test_server_software_config
+-heat_integrationtests.scenario.test_volumes.VolumeBackupRestoreIntegrationTest.test_cinder_volume_create_backup_restore
+-heat_integrationtests.functional.test_cancel_update.CancelUpdateTest.test_cancel_update_server_with_port
+
+# Unable to find network with name or id 'public'
+-heat_integrationtests.scenario.test_server_signal.ServerSignalIntegrationTest.test_server_signal_userdata_format_software_config
+-heat_integrationtests.scenario.test_server_signal.ServerSignalIntegrationTest.test_server_signal_userdata_format_raw
+
+# aodh alarming endpoint is not in service catalog.
+-heat_integrationtests.scenario.test_aodh_alarm.AodhAlarmTest.test_alarm

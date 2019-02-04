@@ -1,0 +1,40 @@
+{#
+#
+# (c) Copyright 2018 SUSE LLC
+#
+# Licensed under the Apache License, Version 2.0 (the "License"); you may
+# not use this file except in compliance with the License. You may obtain
+# a copy of the License at
+#
+# http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+# WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+# License for the specific language governing permissions and limitations
+# under the License.
+#
+#}
+
+# Run all nova tests
++tempest\.api\.compute\.*
++tempest\.scenario\.test_server\.*
++tempest\.scenario\.test_snapshot\.*
++tempest\.scenario\.test_minimum\.*
++tempest\.scenario\.test_shelve\.*
++tempest\.scenario\.test_aggregates\.*
+
+# Those tests requires to be executed serially as they compete for resources
+-tempest.api.compute.admin.test_migrations.MigrationsAdminTest.test_resize_server_revert_deleted_flavor
+-tempest.api.compute.servers.test_disk_config.ServerDiskConfigTestJSON.test_resize_server_from_manual_to_auto
+-tempest.api.compute.servers.test_server_actions.ServerActionsTestJSON.test_resize_server_revert
+-tempest.api.compute.servers.test_server_actions.ServerActionsTestJSON.test_resize_server_confirm
+-tempest.scenario.test_server_advanced_ops.TestServerAdvancedOps.test_resize_volume_backed_server_confirm
+
+# Known failures:
+# You are not authorized to perform the requested action: identity:list_domains
+-tempest.api.compute.admin.test_quotas.QuotasAdminTestJSON.test_delete_quota
+-tempest.api.compute.admin.test_quotas.QuotasAdminTestJSON.test_get_updated_quotas
+
+# Unable to automatically allocate a network for project
+-tempest.api.compute.admin.test_auto_allocate_network.AutoAllocateNetworkTest.test_server_multi_create_auto_allocate
