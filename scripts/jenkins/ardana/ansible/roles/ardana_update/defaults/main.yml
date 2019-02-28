@@ -16,7 +16,9 @@
 ---
 
 deployer_ip: "{{ '{{' }} hostvars[groups['ARD-SVC--first-member'].0].ansible_ssh_host {{ '}}' }}"
-update_method: "{{ (cloudsource | regex_search('devel|staging.*')) | ternary('update', 'patch') }}"
+is_milestone: "{{ cloudsource is match('cloud\\d(M\\d|RC\\d|GMC)') }}"
+update_src: "{{ is_milestone | ternary('iso', 'repo') }}"
+update_method: "{{ ((cloudsource | regex_search('devel|staging.*')) or is_milestone) | ternary('update', 'patch') }}"
 update_gpg_checks: true
 update_licenses_agree: true
 update_include_reboot_patches: true
