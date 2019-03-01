@@ -1,0 +1,84 @@
+- job-template:
+    name: '{cloud_ccp_job}'
+    project-type: pipeline
+    disabled: '{obj:disabled|False}'
+    concurrent: '{concurrent|False}'
+
+    logrotate:
+      numToKeep: 300
+      daysToKeep: 300
+
+    triggers: '{triggers}'
+
+    parameters:
+      - validating-string:
+          name: PREFIX
+          default: '{PREFIX|}'
+          regex: '[A-Za-z0-9-_]+'
+          msg: >-
+            Empty or malformed value (only alphanumeric, '-' and '_' characters are allowed).
+          description: |
+            The CCP environment identifier.
+            This field should be set to a value that will uniquely identify the build resources created on ECP.
+
+      - string:
+          name: KEYNAME
+          default: '{KEYNAME|engcloud-cloud-ci}'
+          description: >-
+            Keypair name on ECP
+
+      - string:
+          name: OS_CLOUD
+          default: '{OS_CLOUD|engcloud-cloud-ci}'
+          description: >-
+            The OpenStack API credentials used to manage virtual clouds (leave
+            empty to use the default shared 'cloud' ECP account).
+
+      - choice:
+          name: cleanup
+          choices:
+            - '{cleanup|always}'
+            - 'never'
+            - 'always'
+            - 'on success'
+            - 'on failure'
+          description: |
+            Configure the conditions that trigger the virtual environment cleanup.
+            Possible values are:
+              - never
+              - always
+              - on success
+              - on failure
+
+      - string:
+          name: git_socok8s_repo
+          default: https://github.com/SUSE-Cloud/socok8s.git
+          description: >-
+            The git automation repository to use
+
+      - string:
+          name: git_socok8s_branch
+          default: master
+          description: >-
+            The git automation branch
+
+      - string:
+          name: git_automation_repo
+          default: https://github.com/SUSE-Cloud/automation.git
+          description: The git automation repository to use
+
+      - string:
+          name: git_automation_branch
+          default: master
+          description: The git automation branch
+
+    pipeline-scm:
+      scm:
+        - git:
+            url: ${{git_automation_repo}}
+            branches:
+              - ${{git_automation_branch}}
+            browser: auto
+            wipe-workspace: false
+      script-path: jenkins/ci.suse.de/pipelines/openstack-ccp.Jenkinsfile
+      lightweight-checkout: false
