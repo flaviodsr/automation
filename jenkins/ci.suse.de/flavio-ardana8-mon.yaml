@@ -1,0 +1,35 @@
+- job:
+    name: flavio-ardana8-mon
+    project-type: pipeline
+    concurrent: false
+
+    logrotate:
+      numToKeep: 300
+      daysToKeep: 90
+
+    properties:
+      - authorization:
+          cloud:
+            - job-build
+            - job-cancel
+            - job-configure
+            - job-delete
+            - job-discover
+            - job-read
+            - job-workspace
+            - run-delete
+            - run-update
+            - scm-tag
+          anonymous:
+            - job-read
+
+    pipeline-scm:
+      scm:
+        - git:
+            url: https://github.com/flaviodsr/automation.git
+            branches:
+              - enable_migrate
+            browser: auto
+            wipe-workspace: false
+      script-path: jenkins/ci.suse.de/pipelines/${JOB_NAME}.Jenkinsfile
+      lightweight-checkout: false

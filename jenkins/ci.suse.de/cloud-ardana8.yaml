@@ -246,6 +246,74 @@
         - '{ardana_job}'
 
 - project:
+    name: flavio-ardana8-es-kvm-virtual
+    ardana_job: '{name}'
+    ardana_env: cloud-ardana-ci-slot
+    cloudsource: stagingcloud8
+    scenario_name: entry-scale-kvm
+    clm_model: standalone
+    controllers: '2'
+    sles_computes: '2'
+    rhel_computes: '0'
+    tempest_filter_list: "\
+      smoke,keystone,glance,neutron,nova,cinder,swift,ceilometer,heat,barbican,\
+      magnum,designate,freezer"
+    ses_enabled: true
+    ses_rgw_enabled: false
+    qa_test_list: ""
+    git_automation_repo: "https://github.com/flaviodsr/automation.git"
+    git_automation_branch: "enable_migrate"
+    triggers: []
+    jobs:
+        - '{ardana_job}'
+
+- project:
+    name: flavio-ardana8-es-kvm-bm
+    ardana_job: '{name}'
+    ardana_env: pcloud002
+    reserve_env: false
+    cloudsource: stagingcloud8
+    scenario_name: entry-scale-kvm
+    clm_model: standalone
+    controllers: '2'
+    sles_computes: '2'
+    rhel_computes: '0'
+    tempest_filter_list: "\
+      smoke,keystone,glance,neutron,nova,cinder,swift,ceilometer,heat,barbican,\
+      magnum,designate,freezer"
+    ses_enabled: true
+    ses_rgw_enabled: false
+    qa_test_list: ""
+    git_automation_repo: "https://github.com/flaviodsr/automation.git"
+    git_automation_branch: "enable_migrate"
+    triggers: []
+    jobs:
+        - '{ardana_job}'
+
+- project:
+    name: flavio-ardana8-std-min-lmm-virtual
+    ardana_job: '{name}'
+    ardana_env: cloud-ardana-ci-slot
+    cloudsource: stagingcloud8
+    scenario_name: std-lmm
+    clm_model: standalone
+    controllers: '2'
+    lmm_nodes: '1'
+    sles_computes: '2'
+    rhel_computes: '0'
+    tempest_filter_list: "\
+      smoke,keystone,glance,neutron,nova,cinder,swift,ceilometer,heat,barbican,\
+      magnum,designate,freezer"
+    ses_enabled: true
+    ses_rgw_enabled: false
+    qa_test_list: ""
+    git_automation_repo: "https://github.com/flaviodsr/automation.git"
+    git_automation_branch: "enable_migrate"
+    triggers: []
+    jobs:
+        - '{ardana_job}'
+
+- project:
     name: cloud-ardana8-job-image-update
     ardana_image_update_job: '{name}'
     triggers:
