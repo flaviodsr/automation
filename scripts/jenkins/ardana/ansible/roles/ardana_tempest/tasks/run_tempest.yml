@@ -42,6 +42,7 @@
       loop:
         - python-ceilometer
         - python-neutron-fwaas
+        - python-neutron-vpnaas
 
     - name: Create cert symlink required by Freezer tempest
       file:
