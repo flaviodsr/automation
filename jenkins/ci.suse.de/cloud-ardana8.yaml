@@ -256,8 +256,8 @@
     sles_computes: '2'
     rhel_computes: '0'
     tempest_filter_list: "\
-      smoke,keystone,glance,neutron,nova,cinder,swift,ceilometer,heat,barbican,\
-      magnum,designate,freezer"
+      smoke,keystone,glance,neutron,lbaas,nova,cinder,swift,ceilometer,heat,barbican,\
+      magnum,designate,freezer,monasca"
     ses_enabled: true
     ses_rgw_enabled: false
     qa_test_list: ""
@@ -279,8 +279,8 @@
     sles_computes: '2'
     rhel_computes: '0'
     tempest_filter_list: "\
-      smoke,keystone,glance,neutron,nova,cinder,swift,ceilometer,heat,barbican,\
-      magnum,designate,freezer"
+      smoke,keystone,glance,neutron,lbaas,nova,cinder,swift,ceilometer,heat,barbican,\
+      magnum,designate,freezer,monasca"
     ses_enabled: true
     ses_rgw_enabled: false
     qa_test_list: ""
@@ -302,8 +302,8 @@
     sles_computes: '2'
     rhel_computes: '0'
     tempest_filter_list: "\
-      smoke,keystone,glance,neutron,nova,cinder,swift,ceilometer,heat,barbican,\
-      magnum,designate,freezer"
+      smoke,keystone,glance,neutron,lbaas,nova,cinder,swift,ceilometer,heat,barbican,\
+      magnum,designate,freezer,monasca"
     ses_enabled: true
     ses_rgw_enabled: false
     qa_test_list: ""
