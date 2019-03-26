@@ -28,6 +28,7 @@ tempest_qe_run_filters:
   - keystone
   - glance
   - neutron
+  - lbaas
   - nova
   - cinder
   - swift
@@ -37,6 +38,9 @@ tempest_qe_run_filters:
   - magnum
   - designate
   - freezer
+  - monasca
+  - vpnaas
+  - fwaas
 
 tempest_config:
   - section: auth
