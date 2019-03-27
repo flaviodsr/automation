@@ -18,15 +18,15 @@
 
 {% if (tempest_testable.keystone | bool) %}
 # Run all keystone tests
-+tempest\.api\.identity\.*
++tempest.api.identity\.*
 
 # Known failures:
 # Failed to find user 'foo' in fetched list
--tempest\.api\.identity\.admin\.v3\.test_list_users.UsersV3TestJSON\.test_list_users
+-tempest.api.identity.admin.v3.test_list_users.UsersV3TestJSON.test_list_users
 
 # 'tempest-test_user-493913785' not in []
--tempest\.api\.identity\.admin\.v3\.test_list_users.UsersV3TestJSON\.test_list_users_with_name
+-tempest.api.identity.admin.v3.test_list_users.UsersV3TestJSON.test_list_users_with_name
 
 # AssertionError: [u'foo1', u'foo2', u'foo3'] is not false : sequence or collection is not empty
--tempest\.api\.identity\.admin\.v3\.test_groups\.GroupsV3TestJSON\.test_list_groups
+-tempest.api.identity.admin.v3.test_groups.GroupsV3TestJSON.test_list_groups
 {% endif %}
