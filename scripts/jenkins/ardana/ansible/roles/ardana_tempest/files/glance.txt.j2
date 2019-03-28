@@ -16,7 +16,8 @@
 #
 #}
 
-#Run all glance tests
+{% if (tempest_testable.glance | bool) %}
+# Run all glance tests
 +tempest\.api\.image\.*
 
 # Known failures:
@@ -24,3 +25,4 @@
 -tempest.api.image.v1.test_images.CreateRegisterImagesTest.test_register_http_image
 -tempest.api.image.v1.test_images.CreateRegisterImagesTest.test_register_remote_image
 -tempest.api.image.v1.test_images.ListImagesTest
+{% endif %}

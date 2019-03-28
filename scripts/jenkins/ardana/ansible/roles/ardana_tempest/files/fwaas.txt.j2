@@ -16,6 +16,8 @@
 #
 #}
 
+{% if (tempest_testable.neutron | bool) %}
 # Run all neutron FWaaS tests
 # Requires centralized router
 +neutron_fwaas\.*
+{% endif %}

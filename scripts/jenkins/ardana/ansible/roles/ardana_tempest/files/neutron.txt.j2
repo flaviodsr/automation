@@ -16,6 +16,7 @@
 #
 #}
 
+{% if (tempest_testable.neutron | bool) %}
 # Run all neutron tests
 +tempest\.api\.network\.*
 +tempest\.scenario\.test_network\.*
@@ -26,3 +27,4 @@
 -tempest.api.network.admin.test_routers.RoutersIpV6AdminTest.test_create_router_setting_project_id
 -tempest.api.network.admin.test_quotas.QuotasTest.test_quotas
 -tempest.api.network.admin.test_routers.RoutersAdminTest.test_create_router_setting_project_id
+{% endif %}

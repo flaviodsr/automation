@@ -16,6 +16,7 @@
 #
 #}
 
+{% if (tempest_testable.monasca | bool) %}
 # Run all monasca tests
 +monasca_tempest_tests\.*
 
@@ -27,7 +28,7 @@
 -monasca_tempest_tests.tests.api.test_alarm_definitions.TestAlarmDefinitions.test_list_alarm_definitions_sort_by
 
 # The groups returned by tempest are on a inverse order than the tests expected (e.g. expects [74,"ALARM"],[176,"UNDETERMINED"],
-      # gets [176,"UNDETERMINED"],[74,"ALARM"])
+# gets [176,"UNDETERMINED"],[74,"ALARM"])
 -monasca_tempest_tests.tests.api.test_alarms_count.TestAlarmsCount.test_group_by_singular
 
 # logs-search service not found on service catalog (EndpointNotFound: Endpoint not found)
@@ -46,3 +47,4 @@
 -monasca_tempest_tests.tests.log_api.test_constraints.TestLogApiConstraints.test_should_reject_too_big_message
 -monasca_tempest_tests.tests.log_api.test_constraints.TestLogApiConstraints.test_should_reject_too_big_message_multiline
 -monasca_tempest_tests.tests.log_api.test_unicode.TestUnicodeV3.test_unicode_message
+{% endif %}

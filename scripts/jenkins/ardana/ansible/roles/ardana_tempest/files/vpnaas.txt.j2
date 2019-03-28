@@ -16,6 +16,8 @@
 #
 #}
 
+{% if (tempest_testable.neutron | bool) %}
 # Run all neutron VPNaaS tests
 # Requires centralized router
 +neutron_vpnaas\.*
+{% endif %}

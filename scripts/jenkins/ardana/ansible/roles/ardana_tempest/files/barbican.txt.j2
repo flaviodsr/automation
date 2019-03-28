@@ -16,6 +16,7 @@
 #
 #}
 
+{% if (tempest_testable.barbican | bool) %}
 # Run all barbican tests
 +barbican_tempest_plugin\.*
 
@@ -25,3 +26,4 @@
 # For RBD backend requires qemu-img 2.10. See: https://review.openstack.org/#/c/534811/
 -barbican_tempest_plugin.tests.scenario.test_volume_encryption.VolumeEncryptionTest.test_encrypted_cinder_volumes_cryptsetup
 -barbican_tempest_plugin.tests.scenario.test_volume_encryption.VolumeEncryptionTest.test_encrypted_cinder_volumes_luks
+{% endif %}

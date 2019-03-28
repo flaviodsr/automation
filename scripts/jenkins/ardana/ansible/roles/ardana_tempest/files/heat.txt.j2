@@ -16,6 +16,7 @@
 #
 #}
 
+{% if (tempest_testable.heat | bool) %}
 # Run all heat tests
 +heat_integrationtests\.*
 
@@ -89,3 +90,4 @@
 
 # aodh alarming endpoint is not in service catalog.
 -heat_integrationtests.scenario.test_aodh_alarm.AodhAlarmTest.test_alarm
+{% endif %}

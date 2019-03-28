@@ -16,5 +16,7 @@
 #
 #}
 
+{% if (tempest_testable.neutron | bool) %}
 # Run all neutron LBaaS tests
 +neutron_lbaas\.*
+{% endif %}

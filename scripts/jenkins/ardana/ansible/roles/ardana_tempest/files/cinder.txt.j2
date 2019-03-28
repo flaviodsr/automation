@@ -16,6 +16,7 @@
 #
 #}
 
+{% if (tempest_testable.cinder | bool) %}
 # Run all cinder tests
 +tempest\.api\.volume\.*
 +tempest\.scenario\.test_volume\.*
@@ -36,3 +37,4 @@
 -tempest.scenario.test_volume_boot_pattern.TestVolumeBootPattern.test_boot_server_from_encrypted_volume_luks
 -tempest.scenario.test_encrypted_cinder_volumes.TestEncryptedCinderVolumes.test_encrypted_cinder_volumes_cryptsetup
 -tempest.scenario.test_encrypted_cinder_volumes.TestEncryptedCinderVolumes.test_encrypted_cinder_volumes_luks
+{% endif %}

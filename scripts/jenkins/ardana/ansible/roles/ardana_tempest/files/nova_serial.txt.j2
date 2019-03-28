@@ -16,9 +16,11 @@
 #
 #}
 
+{% if (tempest_testable.nova | bool) %}
 # Run nova tests serially
 +tempest.api.compute.admin.test_migrations.MigrationsAdminTest.test_resize_server_revert_deleted_flavor
 +tempest.api.compute.servers.test_disk_config.ServerDiskConfigTestJSON.test_resize_server_from_manual_to_auto
 +tempest.api.compute.servers.test_server_actions.ServerActionsTestJSON.test_resize_server_revert
 +tempest.api.compute.servers.test_server_actions.ServerActionsTestJSON.test_resize_server_confirm
 +tempest.scenario.test_server_advanced_ops.TestServerAdvancedOps.test_resize_volume_backed_server_confirm
+{% endif %}

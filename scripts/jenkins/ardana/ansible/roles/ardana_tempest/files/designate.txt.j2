@@ -16,5 +16,7 @@
 #
 #}
 
+{% if (tempest_testable.designate | bool) %}
 # Run all designate tests
 +designate_tempest_plugin\.*
+{% endif %}

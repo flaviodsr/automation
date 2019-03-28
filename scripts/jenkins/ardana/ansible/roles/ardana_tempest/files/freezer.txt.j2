@@ -16,5 +16,7 @@
 #
 #}
 
+{% if (tempest_testable.freezer | bool) %}
 # Run all freezer tests
 +freezer_tempest_plugin\.*
+{% endif %}

@@ -16,6 +16,7 @@
 #
 #}
 
+{% if (tempest_testable.ceiloemter | bool) %}
 # Run all ceilometer tests
 +ceilometer\.*
 
@@ -25,3 +26,4 @@
 
 # Glance not configured to notify ceilometer
 -ceilometer.tests.tempest.api.test_telemetry_notification_api.TelemetryNotificationAPITest.test_check_glance_v2_notifications
+{% endif %}

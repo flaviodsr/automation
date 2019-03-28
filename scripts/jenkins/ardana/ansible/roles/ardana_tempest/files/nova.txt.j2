@@ -16,6 +16,7 @@
 #
 #}
 
+{% if (tempest_testable.nova | bool) %}
 # Run all nova tests
 +tempest\.api\.compute\.*
 +tempest\.scenario\.test_server\.*
@@ -36,5 +37,6 @@
 -tempest.api.compute.admin.test_quotas.QuotasAdminTestJSON.test_delete_quota
 -tempest.api.compute.admin.test_quotas.QuotasAdminTestJSON.test_get_updated_quotas
 
-# Unable to automatically allocate a network for project
+# Requires configuring a default subnet pool for ext-net
 -tempest.api.compute.admin.test_auto_allocate_network.AutoAllocateNetworkTest.test_server_multi_create_auto_allocate
+{% endif %}

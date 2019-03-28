@@ -16,6 +16,7 @@
 #
 #}
 
+{% if (tempest_testable.keystone | bool) %}
 # Run all keystone tests
 +tempest\.api\.identity\.*
 
@@ -28,3 +29,4 @@
 
 # AssertionError: [u'foo1', u'foo2', u'foo3'] is not false : sequence or collection is not empty
 -tempest\.api\.identity\.admin\.v3\.test_groups\.GroupsV3TestJSON\.test_list_groups
+{% endif %}

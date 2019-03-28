@@ -16,6 +16,8 @@
 #
 #}
 
+{% if (tempest_testable.swift | bool) %}
 # Run all swift tests
 +tempest\.api\.object_storage\.*
 +tempest\.scenario\.test_object_storage\.*
+{% endif %}
