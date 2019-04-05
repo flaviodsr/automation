@@ -18,23 +18,24 @@
 
 {% if (tempest_testable.cinder | bool) %}
 # Run all cinder tests
-+tempest\.api\.volume\.*
-+tempest\.scenario\.test_volume\.*
-+tempest\.scenario\.test_encrypted\.*
++tempest.api.volume\.*
++tempest.scenario.test_volume\.*
++tempest.scenario.test_encrypted\.*
 +cinder_tempest_plugin\.*
 
 # Known failures
 # You are not authorized to perform the requested action: identity:list_domains.
 -tempest.api.volume.admin.test_volume_quota_classes.VolumeQuotaClassesTest.test_update_default_quota
--tempest.api.volume.admin.test_volume_quotas.BaseVolumeQuotasAdminTestJSON.test_delete_quota
 
 # Fails because when using the cinder_admin role it is possible to get volume types from other projects
 # and the test expects NotFound
 -tempest.api.volume.admin.test_volume_type_access.VolumeTypesAccessTest.test_volume_type_access_add
 -tempest.api.volume.admin.test_volume_types_negative.VolumeTypesNegativeTest.test_create_volume_with_private_volume_type
 
-# For RBD backend requires qemu-img 2.10. See: https://review.openstack.org/#/c/534811/
--tempest.scenario.test_volume_boot_pattern.TestVolumeBootPattern.test_boot_server_from_encrypted_volume_luks
+# plain encryption provider is not supported by RBD
 -tempest.scenario.test_encrypted_cinder_volumes.TestEncryptedCinderVolumes.test_encrypted_cinder_volumes_cryptsetup
--tempest.scenario.test_encrypted_cinder_volumes.TestEncryptedCinderVolumes.test_encrypted_cinder_volumes_luks
+
+# This tests is expected to fail until cinder-tempest-plugin is updated to 0.2.0+
+# (see: https://review.openstack.org/#/c/620576/)
+-cinder_tempest_plugin.api.volume.test_volume_revert.VolumeRevertTests.test_volume_revert_to_snapshot_after_extended
 {% endif %}

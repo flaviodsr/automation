@@ -21,8 +21,10 @@
 +tempest\.api\.image\.*
 
 # Known failures:
-# External sources are not supported
--tempest.api.image.v1.test_images.CreateRegisterImagesTest.test_register_http_image
--tempest.api.image.v1.test_images.CreateRegisterImagesTest.test_register_remote_image
--tempest.api.image.v1.test_images.ListImagesTest
+# Those tests fails due to the custom ardana policy
+-tempest.api.image.v2.test_images.BasicOperationsImagesTest.test_deactivate_reactivate_image
+-tempest.api.image.v2.test_images_member_negative.ImagesMemberNegativeTest.test_image_share_owner_cannot_accept
+-tempest.api.image.v2.test_images_member.ImagesMemberTest.test_image_share_accept
+-tempest.api.image.v2.test_images_member.ImagesMemberTest.test_image_share_reject
+-tempest.api.image.v2.test_images_member.ImagesMemberTest.test_remove_image_member
 {% endif %}

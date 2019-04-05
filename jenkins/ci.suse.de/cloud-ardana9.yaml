@@ -239,3 +239,47 @@
     sles_image: cleanvm-jeos-lvm-SLE12SP4
     jobs:
         - '{ardana_image_update_job}'
+
+
+- project:
+    name: flavio-ardana9-es-kvm-virtual
+    ardana_job: '{name}'
+    ardana_env: cloud-ardana-gerrit-slot
+    cloudsource: stagingcloud9
+    scenario_name: entry-scale-kvm
+    clm_model: standalone
+    controllers: '3'
+    sles_computes: '2'
+    rhel_computes: '0'
+    tempest_filter_list: "\
+      smoke,keystone,glance,neutron,nova,cinder,swift,heat"
+    ses_enabled: true
+    ses_rgw_enabled: false
+    qa_test_list: ""
+    git_automation_repo: "https://github.com/flaviodsr/automation.git"
+    git_automation_branch: "enable_migrate"
+    triggers: []
+    jobs:
+        - '{ardana_job}'
+
+- project:
+    name: flavio-ardana9-es-kvm-bm
+    ardana_job: '{name}'
+    ardana_env: pcloud002
+    reserve_env: false
+    cloudsource: stagingcloud9
+    scenario_name: entry-scale-kvm
+    clm_model: standalone
+    controllers: '3'
+    sles_computes: '2'
+    rhel_computes: '0'
+    tempest_filter_list: "\
+      smoke,keystone,glance,neutron,nova,cinder,swift,heat"
+    ses_enabled: true
+    ses_rgw_enabled: false
+    qa_test_list: ""
+    git_automation_repo: "https://github.com/flaviodsr/automation.git"
+    git_automation_branch: "enable_migrate"
+    triggers: []
+    jobs:
+        - '{ardana_job}'

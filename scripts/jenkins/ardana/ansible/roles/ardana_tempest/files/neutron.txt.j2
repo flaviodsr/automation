@@ -18,13 +18,29 @@
 
 {% if (tempest_testable.neutron | bool) %}
 # Run all neutron tests
-+tempest\.api\.network\.*
-+tempest\.scenario\.test_network\.*
-+tempest\.scenario\.test_security_groups\.*
++tempest.api.network\.*
++tempest.scenario.test_network\.*
++tempest.scenario.test_security_groups\.*
++neutron_tempest_plugin\.*
 
-# Known failures
+# Known failures:
 # You are not authorized to perform the requested action: identity:list_domains
 -tempest.api.network.admin.test_routers.RoutersIpV6AdminTest.test_create_router_setting_project_id
 -tempest.api.network.admin.test_quotas.QuotasTest.test_quotas
 -tempest.api.network.admin.test_routers.RoutersAdminTest.test_create_router_setting_project_id
+
+# You are not authorized to perform the requested action: identity:create_project
+-neutron_tempest_plugin.api.admin.test_quotas.QuotasTest.test_detail_quotas
+-neutron_tempest_plugin.api.admin.test_quotas.QuotasTest.test_quotas
+-neutron_tempest_plugin.api.admin.test_floating_ips_admin_actions.FloatingIPAdminTestJSON.test_associate_floating_ip_with_port_from_another_project
+-neutron_tempest_plugin.api.admin.test_quotas_negative.QuotasAdminNegativeTestJSON.test_create_floatingip_when_quotas_is_full
+-neutron_tempest_plugin.api.admin.test_quotas_negative.QuotasAdminNegativeTestJSON.test_create_network_when_quotas_is_full
+-neutron_tempest_plugin.api.admin.test_quotas_negative.QuotasAdminNegativeTestJSON.test_create_port_when_quotas_is_full
+-neutron_tempest_plugin.api.admin.test_quotas_negative.QuotasAdminNegativeTestJSON.test_create_security_group_rule_when_quotas_is_full
+-neutron_tempest_plugin.api.admin.test_quotas_negative.QuotasAdminNegativeTestJSON.test_create_security_group_when_quotas_is_full
+-neutron_tempest_plugin.api.admin.test_quotas_negative.QuotasAdminNegativeTestJSON.test_create_subnet_when_quotas_is_full
+-neutron_tempest_plugin.api.admin.test_quotas_negative.QuotasAdminNegativeTestJSON.test_create_router_when_quotas_is_full
+
+# Some tests still check for the deprecate tag/tag-ext extensions 
+-neutron_tempest_plugin.api.test_extensions.ExtensionsTest.test_list_extensions_includes_all
 {% endif %}

@@ -38,7 +38,7 @@ pipeline {
         stage('es-kvm-virtual') {
           steps {
             script {
-              def slaveJob = ardana_lib.trigger_build("flavio-ardana8-es-kvm-virtual", [], false)
+              def slaveJob = ardana_lib.trigger_build("flavio-ardana9-es-kvm-virtual", [], false)
             }
           }
         }
@@ -46,15 +46,7 @@ pipeline {
         stage('es-kvm-bm') {
           steps {
             script {
-              def slaveJob = ardana_lib.trigger_build("flavio-ardana8-es-kvm-bm", [], false)
-            }
-          }
-        }
-
-        stage('std-min-lmm-virtual') {
-          steps {
-            script {
-              def slaveJob = ardana_lib.trigger_build("flavio-ardana8-std-min-lmm-virtual", [], false)
+              def slaveJob = ardana_lib.trigger_build("flavio-ardana9-es-kvm-bm", [], false)
             }
           }
         }

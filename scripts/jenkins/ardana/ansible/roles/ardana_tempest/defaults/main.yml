@@ -28,43 +28,54 @@ tempest_qe_run_filters:
   - keystone
   - glance
   - neutron
-  - lbaas
   - nova
   - cinder
   - swift
-  - ceilometer
   - heat
-  - barbican
-  - magnum
-  - designate
-  - freezer
-  - monasca
-  - vpnaas
-  - fwaas
 
 tempest_config:
   - section: auth
     option: tempest_roles
-    value: "key-manager:admin, cinder_admin, glance_admin, _member_, Member"
+    value: "key-manager:admin, cinder_admin, glance_admin, Member"
+  - section: network-feature-enabled
+    option: api_extensions
+    value: "address-scope, agent, allowed-address-pairs, auto-allocated-topology, availability_zone, binding, binding-extended, default-subnetpools, dhcp_agent_scheduler, dns-domain-ports, dns-integration, dvr, empty-string-filtering, ext-gw-mode, external-net, extra_dhcp_opt, extraroute, fip-port-details, flavors, fwaas, fwaasrouterinsertion, hm_max_retries_down, ip-substring-filtering, l3-flavors, l3-ha, l3_agent_scheduler, l7, lbaas_agent_schedulerv2, lbaasv2, lb-graph, multi-provider, net-mtu, net-mtu-writable, network-ip-availability, network_availability_zone, pagination, project-id, provider, quotas, quota_details, rbac-policies, revision-if-match, router, router_availability_zone, security-group, port-mac-address-regenerate, port-security-groups-filtering, service-type, shared_pools, sorting, standard-attr-description, standard-attr-revisions, standard-attr-timestamp, standard-attr-tag, subnet_allocation, subnet-service-types, tag, tag-ext, vpnaas, vpn-endpoint-groups, vpn-flavors"
+  - section: neutron_plugin_options
+    option: agent_availability_zone
+    value: nova
+  - section: neutron_plugin_options
+    option: available_type_drivers
+    value: "local, flat, vlan, gre, vxlan"
+  - section: neutron_plugin_options
+    option: l3_agent_mode
+    value: dvr_snat
   - section: compute-feature-enabled
-    option: block_migration_for_live_migration
-    value: false
+    option: volume_backed_live_migration
+    value: true
   - section: volume
-    option: storage_protocol
-    value: ceph
+    option: max_microversion
+    value: latest
+  - section: volume
+    option: manage_snapshot_ref
+    value: "source-name,snapshot-%s"
+  - section: volume-feature-enabled
+    option: manage_snapshot
+    value: true
+  - section: volume-feature-enabled
+    option: manage_volume
+    value: true
+  - section: volume-feature-enabled
+    option: volume_revert
+    value: true
   - section: heat_plugin
-    option: minimal_image_ref
+    option: boot_config_env
+    value: "/usr/lib/python2.7/site-packages/heat_tempest_plugin/tests/scenario/templates/boot_config_none_env.yaml"
+  - section: heat_plugin
+    option: image_ref
     value: cirros_alt
   - section: heat_plugin
-    option: instance_type
-    value: m1.small
-  - section: heat_plugin
-    option: minimal_instance_type
-    value: m1.tiny
-  - section: service-clients
-    option: http_timeout
-    value: 360
-
+    option: floating_network_name
+    value: ext-net
 
 subunit_tools_venv: "/var/lib/ardana/subunit-tools-venv"
 

@@ -18,12 +18,12 @@
 
 {% if (tempest_testable.nova | bool) %}
 # Run all nova tests
-+tempest\.api\.compute\.*
-+tempest\.scenario\.test_server\.*
-+tempest\.scenario\.test_snapshot\.*
-+tempest\.scenario\.test_minimum\.*
-+tempest\.scenario\.test_shelve\.*
-+tempest\.scenario\.test_aggregates\.*
++tempest.api.compute\.*
++tempest.scenario.test_server\.*
++tempest.scenario.test_snapshot\.*
++tempest.scenario.test_minimum\.*
++tempest.scenario.test_shelve\.*
++tempest.scenario.test_aggregates\.*
 
 # Those tests requires to be executed serially as they compete for resources
 -tempest.api.compute.admin.test_migrations.MigrationsAdminTest.test_resize_server_revert_deleted_flavor
@@ -36,6 +36,8 @@
 # You are not authorized to perform the requested action: identity:list_domains
 -tempest.api.compute.admin.test_quotas.QuotasAdminTestJSON.test_delete_quota
 -tempest.api.compute.admin.test_quotas.QuotasAdminTestJSON.test_get_updated_quotas
+-tempest.api.compute.admin.test_quotas.QuotasAdminTestV236.test_get_updated_quotas
+-tempest.api.compute.admin.test_quotas.QuotasAdminTestV257.test_get_updated_quotas
 
 # Requires configuring a default subnet pool for ext-net
 -tempest.api.compute.admin.test_auto_allocate_network.AutoAllocateNetworkTest.test_server_multi_create_auto_allocate
