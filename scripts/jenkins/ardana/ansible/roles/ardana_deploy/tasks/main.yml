@@ -34,6 +34,11 @@
   register: vrrp
   when: is_physical_deploy
 
+- name: Replace configure rabbitmq cluster
+  copy:
+    src: "_configure_rabbit.yml"
+    dest: "{{ ardana_openstack_path }}/roles/rabbitmq/tasks/_configure-ha-cluster.yml"
+
 - name: Commit changes
   shell: |
     git add -A

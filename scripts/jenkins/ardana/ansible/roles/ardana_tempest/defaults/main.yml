@@ -58,6 +58,9 @@ tempest_config:
   - section: volume
     option: manage_snapshot_ref
     value: "source-name,snapshot-%s"
+  - section: volume
+    option: build_timeout
+    value: 600
   - section: volume-feature-enabled
     option: manage_snapshot
     value: true
@@ -76,6 +79,24 @@ tempest_config:
   - section: heat_plugin
     option: floating_network_name
     value: ext-net
+  - section: heat_plugin
+    option: skip_scenario_tests
+    value: false
+  - section: heat_plugin
+    option: skip_functional_test_list
+    value: ""
+  - section: auth
+    option: admin_project_name
+    value: cloud_admin_project
+  - section: validation
+    option: ping_timeout
+    value: 240
+  - section: validation
+    option: connect_timeout
+    value: 120
+  - section: validation
+    option: ssh_timeout
+    value: 600
 
 subunit_tools_venv: "/var/lib/ardana/subunit-tools-venv"
 
