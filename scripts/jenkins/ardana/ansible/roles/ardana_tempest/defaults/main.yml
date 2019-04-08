@@ -97,6 +97,9 @@ tempest_config:
   - section: validation
     option: ssh_timeout
     value: 600
+  - section: compute
+    option: build_timeout
+    value: 600
 
 subunit_tools_venv: "/var/lib/ardana/subunit-tools-venv"
 

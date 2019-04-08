@@ -39,6 +39,11 @@
     src: "_configure_rabbit.yml"
     dest: "{{ ardana_openstack_path }}/roles/rabbitmq/tasks/_configure-ha-cluster.yml"
 
+- name: Replace mysql cnf
+  copy:
+    src: "my.cnf"
+    dest: "{{ ardana_openstack_path }}/roles/FND-MDB/templates/etc/mysql/my.cnf.j2"
+
 - name: Commit changes
   shell: |
     git add -A
