@@ -18,7 +18,10 @@
 
 {% if (tempest_testable.glance | bool) %}
 # Run all glance tests
-+tempest\.api\.image\.*
++tempest.api.image\.*
+
+# This test needs to run serially
+-tempest.api.image.v2.test_images.ListSharedImagesTest.test_list_images_param_member_status
 
 # Known failures:
 # Those tests fails due to the custom ardana policy

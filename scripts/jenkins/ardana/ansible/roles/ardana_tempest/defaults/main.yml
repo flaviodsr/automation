@@ -19,7 +19,7 @@ ardana_scratch_path: "~/scratch/ansible/next/ardana/ansible"
 
 tempest_run_filter: smoke
 tempest_retry_failed: False
-tempest_run_concurrency: 4
+tempest_run_concurrency: 8
 tempest_results_log: "/opt/stack/tempest/logs/testr_results_region1.log"
 tempest_results_subunit: "/opt/stack/tempest/logs/testrepository_region1.subunit"
 
@@ -27,11 +27,22 @@ tempest_qe_run_filters:
   - smoke
   - keystone
   - glance
+  - glance_serial
   - neutron
+  - neutron_serial
   - nova
+  - nova_serial
   - cinder
+  - cinder_serial
   - swift
   - heat
+  - barbican
+  - magnum
+  - monasca
+  - designate
+  - lbaas
+  - fwaas
+  - vpnaas
 
 tempest_config:
   - section: auth
@@ -58,9 +69,6 @@ tempest_config:
   - section: volume
     option: manage_snapshot_ref
     value: "source-name,snapshot-%s"
-  - section: volume
-    option: build_timeout
-    value: 600
   - section: volume-feature-enabled
     option: manage_snapshot
     value: true
@@ -88,18 +96,6 @@ tempest_config:
   - section: auth
     option: admin_project_name
     value: cloud_admin_project
-  - section: validation
-    option: ping_timeout
-    value: 240
-  - section: validation
-    option: connect_timeout
-    value: 120
-  - section: validation
-    option: ssh_timeout
-    value: 600
-  - section: compute
-    option: build_timeout
-    value: 600
 
 subunit_tools_venv: "/var/lib/ardana/subunit-tools-venv"
 
@@ -110,4 +106,4 @@ defcore_results: "~/refstack_results.subunit"
 subunit_html_results: "~/testr_results_region1.html"
 subunit_xml_results: "~/testr_results_region1.xml"
 
-octavia_amphora_image_rpm: "find /srv/www/*/x86_64/repos/*OpenStack*/ -name '*octavia-amphora-image*' | tail -n1"
+octavia_amphora_image_rpm: "find /srv/www/*/x86_64/repos/*/ -name '*octavia-amphora-image*' | tail -n1"

@@ -15,11 +15,5 @@
 # under the License.
 #
 #}
-
-{% if (tempest_testable.monasca | bool) %}
-# Run all monasca tests
-+monasca_tempest_tests\.*
-
-# You are not authorized to perform the requested action: identity:create_project
--monasca_tempest_tests.tests.api.test_metrics.TestMetrics.test_list_metrics_with_project
-{% endif %}
+# Run glance tests serially
++tempest.api.image.v2.test_images.ListSharedImagesTest.test_list_images_param_member_status

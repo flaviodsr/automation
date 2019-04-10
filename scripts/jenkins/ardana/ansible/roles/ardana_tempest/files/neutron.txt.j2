@@ -23,6 +23,8 @@
 +tempest.scenario.test_security_groups\.*
 +neutron_tempest_plugin\.*
 
+-neutron_tempest_plugin.scenario.test_floatingip.FloatingIPPortDetailsTest.test_floatingip_port_details
+
 # Known failures:
 # You are not authorized to perform the requested action: identity:list_domains
 -tempest.api.network.admin.test_routers.RoutersIpV6AdminTest.test_create_router_setting_project_id
@@ -41,6 +43,6 @@
 -neutron_tempest_plugin.api.admin.test_quotas_negative.QuotasAdminNegativeTestJSON.test_create_subnet_when_quotas_is_full
 -neutron_tempest_plugin.api.admin.test_quotas_negative.QuotasAdminNegativeTestJSON.test_create_router_when_quotas_is_full
 
-# Some tests still check for the deprecate tag/tag-ext extensions 
+# Some tests still check for the deprecate tag/tag-ext extensions
 -neutron_tempest_plugin.api.test_extensions.ExtensionsTest.test_list_extensions_includes_all
 {% endif %}
