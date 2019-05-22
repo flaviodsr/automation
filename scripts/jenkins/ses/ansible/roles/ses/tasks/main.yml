@@ -15,6 +15,9 @@
 #
 ---
 
+- name: Gather variables for {{ ansible_distribution }}{{ ansible_distribution_major_version }}
+  include_vars: "{{ ansible_distribution | lower }}{{ ansible_distribution_major_version }}.yml"
+
 - include_tasks: pre_setup.yml
 
 - include_tasks: zap_disks.yml

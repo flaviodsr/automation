@@ -26,13 +26,24 @@ role-rgw/cluster/*.sls
 # NFS
 role-ganesha/cluster/*.sls
 
+{% if ses_version == 6 %}
+# Storage
+role-storage/cluster/*.sls
+
+# Grafana
+role-grafana/cluster/*.sls
+
+# Prometheus
+role-prometheus/cluster/*.sls
+{% else %}
 # openATTIC
 role-openattic/cluster/*.sls
-
-# COMMON
-config/stack/default/global.yml
-config/stack/default/ceph/cluster.yml
 
 ## Profiles
 profile-default/cluster/*.sls
 profile-default/stack/default/ceph/minions/*.yml
+{% endif %}
+
+# COMMON
+config/stack/default/global.yml
+config/stack/default/ceph/cluster.yml

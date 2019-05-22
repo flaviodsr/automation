@@ -14,7 +14,6 @@
 # under the License.
 #
 ---
-ses_version: 5
 ses_deepsea_minions: "*"
 ses_zap_disks: False
 ses_add_zypper_repos: True
