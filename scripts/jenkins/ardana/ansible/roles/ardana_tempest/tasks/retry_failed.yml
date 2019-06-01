@@ -2,15 +2,6 @@
     - name: Generate filter with failed tests
       template:
         src: "run_filter_retry.txt.j2"
-        dest: "/opt/stack/tempest/run_filters/{{ tempest_run_filter }}_retry_serial.txt.j2"
-        owner: tempest
-        group: tempest
-        mode: 0644
-      become: yes
-
-    - name: Create fake run filter to force running tests serially
-      copy:
-        content: "-.*"
         dest: "/opt/stack/tempest/run_filters/{{ tempest_run_filter }}_retry.txt.j2"
         owner: tempest
         group: tempest
