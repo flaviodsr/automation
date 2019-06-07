@@ -74,6 +74,52 @@ def generate_tempest_stages(tempest_filter_list) {
   }
 }
 
+def generate_version_stages(v, p) {
+  return {
+    stage("cloud ${v}") {
+      echo "This is cloud ${v}"
+      parallel p.collectEntries {
+          ["${it}" : generate_product_stages(it)]
+      }
+    }
+  }
+}
+
+def generate_product_stages(product) {
+  return {
+    stage( "${product}") {
+      echo "This is ${product}"
+      sources_list = [ "${product}" ]
+      def deploy_jobs = sources_list.collectEntries {
+          ["${it}-deploy" : generate_deploy_stages(it)]
+      }
+
+      def update_jobs = sources_list.collectEntries {
+          ["${it}-update" : generate_update_stages(it)]
+      }
+      parallel deploy_jobs + update_jobs
+    }
+  }
+}
+
+def generate_deploy_stages(cloudsource) {
+  return {
+    stage("deploy: ${cloudsource}") {
+      echo "This is deploy"
+      sh script: "sleep 15"
+    }
+  }
+}
+
+def generate_update_stages(cloudsource) {
+  return {
+    stage("update: ${cloudsource}") {
+      echo "This is update"
+      sh script: "sleep 15"
+    }
+  }
+}
+
 def generate_qa_tests_stages(qa_test_list) {
   if (qa_test_list != '') {
     for (test in qa_test_list.split(',')) {
