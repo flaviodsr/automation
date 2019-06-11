@@ -51,7 +51,7 @@
           multi-select-delimiter: ','
           default-value: '{cloudversion|}'
           value: >-
-            ardana8,ardana9
+            SOC8,SOC9
 
       - validating-string:
           name: maint_updates

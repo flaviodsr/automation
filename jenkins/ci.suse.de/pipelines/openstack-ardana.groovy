@@ -110,20 +110,27 @@ def generate_mu_stages(cloudversion_list, deploy, update, body) {
   for (cv in cloudversion_list) {
     if (deploy) {
       jobs["${cv}-deploy"] = {
-        stage("deploy: ${cv}") {
+        stage("Deploy: ${cv}") {
           body(cv, false)
         }
       }
     }
     if (update) {
       jobs["${cv}-update"] = {
-        stage("update: ${cv}") {
+        stage("Update: ${cv}") {
           body(cv, true)
         }
       }
     }
   }
   return jobs
+}
+
+def get_mu_job(cloudversion) {
+ def jobs_map = [
+   "SOC": "cloud-ardana${cloudversion[-1]}-job-entry-scale-kvm-maintenance-update-x86_64"
+ ]
+ return jobs_map[cloudversion[0..-2]]
 }
 
 // Implements a simple closure that executes the supplied function (body) with

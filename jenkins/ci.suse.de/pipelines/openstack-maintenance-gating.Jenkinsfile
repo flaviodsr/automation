@@ -53,7 +53,7 @@ pipeline {
             def suffix = (update_after_deploy) ? "update" : "deploy"
             ardana_lib.run_with_reserved_env(reserve_env.toBoolean(), ardana_env, "${ardana_env}-${cv}-${suffix}") {
               reserved_env ->
-              def slaveJob = ardana_lib.trigger_build("cloud-${cv}-job-entry-scale-kvm-maintenance-update-x86_64", [
+              def slaveJob = ardana_lib.trigger_build(ardana_lib.get_mu_job(cv), [
                 string(name: 'ardana_env', value: reserved_env),
                 string(name: 'reserve_env', value: "false"),
                 string(name: 'cloudsource', value: "GM${cv[-1]}+up"),
