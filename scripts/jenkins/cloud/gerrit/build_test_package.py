@@ -15,6 +15,13 @@ import sys
 import tempfile
 import time
 
+
+if sys.version_info[0] < 3:
+    from urllib import quote_plus
+else:
+    from urllib.parse import quote_plus
+
+
 import sh
 
 
