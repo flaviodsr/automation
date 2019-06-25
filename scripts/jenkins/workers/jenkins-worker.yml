@@ -1,0 +1,9 @@
+---
+- name: Bootstrap jenkins worker node
+  hosts: jenkins_workers
+  become: yes
+  vars_files:
+    - "../cloud/ansible/group_vars/all/ssh_pub_keys.yml"
+
+  roles:
+    - jenkins_worker

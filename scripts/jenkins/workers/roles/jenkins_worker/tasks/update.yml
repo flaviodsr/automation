@@ -1,0 +1,25 @@
+---
+
+- name: Add zypper repositories
+  zypper_repository:
+    name: "{{ item.name }}"
+    repo: "{{ item.repo }}"
+    auto_import_keys: "{{ item.import_keys | default(False) }}"
+  loop: "{{ jenkins_worker_zypp_repos }}"
+
+- name: Run zypper update
+  zypper:
+    name: "*"
+    state: latest
+
+- name: Check if reboot required
+  shell: |
+    LAST_KERNEL=$(ls -t /boot/vmlinuz-* | sed "s/\/boot\/vmlinuz-//g" | head -n1)
+    CURRENT_KERNEL=$(uname -r)
+    test $LAST_KERNEL = $CURRENT_KERNEL || echo True
+  register: reboot
+  changed_when: false
+
+- name: Reboot if necessary
+  reboot:
+  when: reboot.stdout == 'True'

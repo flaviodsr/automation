@@ -1,0 +1,19 @@
+---
+
+- name: Copy public keys
+  blockinfile:
+    path: "/root/.ssh/authorized_keys"
+    create: yes
+    block: |
+      {% for user in ssh_pub_keys %}
+      {%   if user['name'] in jenkins_worker_authorized_users %}
+      {%     for key in user['keys'] %}
+      {{ key }}
+      {%     endfor %}
+      {%   endif %}
+      {% endfor %}
+
+- name: Drop motd
+  template:
+    src: motd.j2
+    dest: "/etc/motd"

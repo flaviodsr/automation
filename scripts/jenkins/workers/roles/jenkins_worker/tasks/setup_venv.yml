@@ -1,0 +1,7 @@
+---
+
+- name: Setup virtual environment
+  pip:
+    name: "{{ jenkins_worker_venv_requires }}"
+    state: latest
+    virtualenv: "{{ jenkins_worker_venv_path }}"

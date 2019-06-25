@@ -1,0 +1,5 @@
+---
+
+- name: Ensure zypper requires installed
+  zypper:
+    name: "{{ jenkins_worker_zypp_requires }}" 

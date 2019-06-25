@@ -1,0 +1,13 @@
+---
+
+- name: Restart ntp
+  service:
+    name: "ntpd"
+    enabled: yes
+    state: restarted
+
+- name: Restart jenkins swarm client
+  service:
+    name: "jenkins-swarm-client"
+    enabled: yes
+    state: restarted
