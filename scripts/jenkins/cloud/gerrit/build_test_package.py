@@ -83,7 +83,7 @@ class OBSPackage:
         with cd(self.source_workspace):
             if not os.path.exists('%s.git/.git' % self.gerrit_project):
                 print("Cloning gerrit project %s" % self.gerrit_project)
-                sh.git('clone', self.url, '%s.git' % self.gerrit_project)
+                sh.git('-c', 'http.sslVerify=false', 'clone', self.url, '%s.git' % self.gerrit_project)
 
         with cd(self.source_dir):
             # If another change is already checked out on this branch,
@@ -125,8 +125,8 @@ class OBSPackage:
             # one of its ancestry commits then the following merge will do a
             # harmless null operation
             print("Fetching ref %s" % change.ref)
-            sh.git('fetch', self.url, change.ref)
-            sh.git('merge', '--no-edit', 'FETCH_HEAD')
+            sh.git('-c', 'http.sslVerify=false', 'fetch', self.url, change.ref)
+            sh.git('-c', 'http.sslVerify=false', 'merge', '--no-edit', 'FETCH_HEAD')
             self._applied_changes.add(change)
 
     def applied_change_numbers(self):

@@ -18,7 +18,7 @@ pipeline {
 
   agent {
     node {
-      label 'cloud-ardana-ci'
+      label 'cloud-ci-test'
       customWorkspace "${JOB_NAME}-${BUILD_NUMBER}"
     }
   }
@@ -365,8 +365,8 @@ pipeline {
         fi
       '''
     }
-    cleanup {
-      cleanWs()
-    }
+    // cleanup {
+    //   cleanWs()
+    // }
   }
 }
