@@ -41,7 +41,7 @@ resources:
     type: OS::Neutron::Net
     properties:
       name: {{ heat_resource_name_prefix }}
-      port_security_enabled: True
+      port_security_enabled: False
 
   ses_subnet:
     type: OS::Neutron::Subnet
@@ -73,10 +73,6 @@ resources:
     properties:
       name: {{ heat_resource_name_prefix }}
       network_id: { {{ (network is not defined or network|length == 0) | ternary('get_resource: ses_network', 'get_param: network') }} }
-{% if network is not defined or network|length == 0 %}
-      security_groups:
-        - all-incoming
-{% endif %}
 
   ses_server:
     type: OS::Nova::Server
