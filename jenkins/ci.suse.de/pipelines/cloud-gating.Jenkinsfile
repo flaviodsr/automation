@@ -48,7 +48,7 @@ pipeline {
           ).trim()
 
           cloud_lib = load "$WORKSPACE/automation-git/jenkins/ci.suse.de/pipelines/openstack-cloud.groovy"
-          cloud_lib.load_extra_params_as_vars(extra_params)
+          // cloud_lib.load_extra_params_as_vars(extra_params)
         }
       }
     }
@@ -76,7 +76,7 @@ pipeline {
                 cleanup              : "never",
                 git_automation_repo  : git_automation_repo,
                 git_automation_branch: git_automation_branch,
-                extra_params         : extra_params
+                // extra_params         : extra_params
               ]
               // override default parameters with those loaded from config file
               job_params.putAll(job_def.job_params)
