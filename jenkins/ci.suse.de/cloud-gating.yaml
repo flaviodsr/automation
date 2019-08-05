@@ -19,7 +19,7 @@
     cloud_gating_job:
       - cloud-8-gating:
           version: '8'
-      - cloud-9-gating:
+      - cloud-9-gating-flavio:
           version: '9'
     jobs:
         - '{cloud_gating_job}'
@@ -87,10 +87,13 @@
           cloudsource: stagingcloud8
           ses_enabled: false
           update_after_deploy: false
-      - cloud-crowbar9-job-gate-no-ha-deploy-x86_64:
+      - cloud-crowbar9-job-gate-no-ha-deploy-x86_64-flavio:
           cloudsource: stagingcloud9
           ses_enabled: true
           update_after_deploy: false
+          tempest_filter_list: "\
+            keystone,swift,glance,cinder,neutron,nova,barbican,fwaas,lbaas,\
+            heat,magnum,manila"
     jobs:
         - '{crowbar_job}'
 
@@ -114,10 +117,13 @@
           cloudsource: stagingcloud8
           ses_enabled: false
           update_after_deploy: false
-      - cloud-crowbar9-job-gate-ha-deploy-x86_64:
+      - cloud-crowbar9-job-gate-ha-deploy-x86_64-flavio:
           cloudsource: stagingcloud9
           ses_enabled: true
           update_after_deploy: false
+          tempest_filter_list: "\
+            keystone,swift,glance,cinder,neutron,nova,barbican,fwaas,lbaas,\
+            heat,magnum,manila"
     jobs:
         - '{crowbar_job}'
 
@@ -142,9 +148,12 @@
           cloudsource: stagingcloud8
           ses_enabled: false
           update_after_deploy: false
-      - cloud-crowbar9-job-gate-linuxbridge-deploy-x86_64:
+      - cloud-crowbar9-job-gate-linuxbridge-deploy-x86_64-flavio:
           cloudsource: stagingcloud9
           ses_enabled: true
           update_after_deploy: false
+          tempest_filter_list: "\
+            keystone,swift,glance,cinder,neutron,nova,barbican,fwaas,lbaas,\
+            heat,magnum,manila"
     jobs:
         - '{crowbar_job}'
