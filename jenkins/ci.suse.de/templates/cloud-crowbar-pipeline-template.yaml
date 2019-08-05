@@ -97,7 +97,7 @@
 
       - bool:
           name: updates_test_enabled
-          default: '{updates_test_enabled|false}'
+          default: '{updates_test_enabled|true}'
           description: >-
             Enable SLES/Cloud test update repos (the Cloud test update repos will
             be enabled only when cloudsource is GM based)
@@ -246,6 +246,13 @@
           name: ses_enabled
           default: '{ses_enabled|true}'
           description: Configure SES backend for glance, cinder and nova
+
+      - choice:
+          name: neutron_networkingplugin
+          choices:
+            - '{neutron_networkingplugin|openvswitch}'
+            - linuxbridge
+          description: Neutron ML2 plugin
 
       - bool:
           name: ipv6

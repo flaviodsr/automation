@@ -73,6 +73,7 @@
     reserve_env: false
     updates_test_enabled: true
     reboot_after_deploy: true
+    tempest_retry_failed: true
     scenario_name: standard
     controllers: '1'
     computes: '2'
@@ -97,8 +98,9 @@
 - project:
     name: cloud-crowbar-job-gate-ha-x86_64
     reserve_env: false
-    updates_test_enabled: false
+    updates_test_enabled: true
     reboot_after_deploy: true
+    tempest_retry_failed: true
     scenario_name: standard
     controllers: '3'
     computes: '2'
@@ -113,6 +115,34 @@
           ses_enabled: false
           update_after_deploy: false
       - cloud-crowbar9-job-gate-ha-deploy-x86_64:
+          cloudsource: stagingcloud9
+          ses_enabled: true
+          update_after_deploy: false
+    jobs:
+        - '{crowbar_job}'
+
+
+- project:
+    name: cloud-crowbar-job-gate-linuxbridge-x86_64
+    reserve_env: false
+    updates_test_enabled: true
+    reboot_after_deploy: true
+    tempest_retry_failed: true
+    neutron_networkingplugin: linuxbridge
+    scenario_name: standard
+    controllers: '1'
+    computes: '2'
+    triggers: []
+    crowbar_job:
+      - cloud-crowbar7-job-gate-linuxbridge-deploy-x86_64:
+          cloudsource: stagingcloud7
+          ses_enabled: false
+          update_after_deploy: false
+      - cloud-crowbar8-job-gate-linuxbridge-deploy-x86_64:
+          cloudsource: stagingcloud8
+          ses_enabled: false
+          update_after_deploy: false
+      - cloud-crowbar9-job-gate-linuxbridge-deploy-x86_64:
           cloudsource: stagingcloud9
           ses_enabled: true
           update_after_deploy: false
