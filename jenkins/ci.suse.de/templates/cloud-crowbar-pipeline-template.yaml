@@ -248,6 +248,17 @@
           description: Configure SES backend for glance, cinder and nova
 
       - choice:
+          name: crowbar_networkingmode
+          choices:
+            - '{crowbar_networkingmode|single}'
+            - team
+          description: >-
+            Set the networking mode for Crowbar:
+
+            single: One single network interface
+            team: Two interfaces will be used through one bonding interface
+
+      - choice:
           name: neutron_networkingplugin
           choices:
             - '{neutron_networkingplugin|openvswitch}'

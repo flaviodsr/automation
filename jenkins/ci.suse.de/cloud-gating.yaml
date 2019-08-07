@@ -135,6 +135,7 @@
     reboot_after_deploy: true
     tempest_retry_failed: true
     neutron_networkingplugin: linuxbridge
+    crowbar_networkingmode: team
     scenario_name: standard
     controllers: '1'
     computes: '2'
