@@ -15,9 +15,9 @@
 #
 ---
 
-- include_tasks: add_mu_repos_crowbar.yml
-  when:
-    - maint_updates_list | length
-    - inventory_hostname not in groups['deployer_virt']
+# - include_tasks: add_mu_repos_crowbar.yml
+#   when:
+#     - maint_updates_list | length
+#     - inventory_hostname not in groups['deployer_virt']
 
 - include_tasks: update_cloud.yml

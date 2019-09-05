@@ -36,10 +36,10 @@
   tasks:
     - block:
         # add MU repos
-        - include_role:
-            name: setup_zypper_repos
-          when:
-            - maint_updates_list | length
+        #        - include_role:
+        #            name: setup_zypper_repos
+        #          when:
+        #            - maint_updates_list | length
 
         - include_role:
             name: crowbar_update
