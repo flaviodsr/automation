@@ -693,15 +693,19 @@ function onadmin_prepare_cloud_repos
                 ;;
             develcloud6)
                 addslestestupdates
+                addcloudtestupdates
                 ;;
             develcloud7)
                 addslestestupdates
+                addcloudtestupdates
                 ;;
             develcloud8)
                 addslestestupdates
+                addcloudtestupdates
                 ;;
             *cloud9|M?*|Beta*|RC*|GMC*)
                 addslestestupdates
+                addcloudtestupdates
                 ;;
             *)
                 complain 26 "no test update repos defined for cloudsource=$cloudsource"
