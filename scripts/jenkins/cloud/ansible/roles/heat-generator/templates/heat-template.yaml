@@ -25,6 +25,14 @@ parameters:
 
 resources:
 
+  # controllers server group
+  controllers_server_group:
+    type: OS::Nova::ServerGroup
+    properties:
+      name: {{ heat_resource_name_prefix }}_server_group
+      policies:
+        - "affinity"
+
   # routers
   router_ext:
     type: OS::Neutron::Router
@@ -295,6 +303,8 @@ resources:
         - soc-admin-node
 {%   elif server.is_controller %}
         - soc-controller-node
+      scheduler_hints:
+        group: { get_resource: controllers_server_group }
 {%   elif server.is_compute %}
         - soc-compute-node
           # Also tag compute node VMs to indicate that nested virtualization
