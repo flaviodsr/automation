@@ -34,6 +34,12 @@
   register: vrrp
   when: is_physical_deploy
 
+- name: Enable durable queues on neutron
+  lineinfile:
+    path: "~/openstack/ardana/ansible/roles/neutron-common/templates/neutron.conf.j2"
+    line: "amqp_durable_queues = True"
+    insertafter: '^rabbit_use_ssl.*'
+
 - name: Commit changes
   shell: |
     git add -A
