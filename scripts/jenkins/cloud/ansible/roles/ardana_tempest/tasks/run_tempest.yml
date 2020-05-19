@@ -42,14 +42,6 @@
       become: yes
       when: tempest_run_filter == 'freezer'
 
-    - name: Ensure subunit tools venv exists
-      pip:
-        name: "{{ item }}"
-        virtualenv: "{{ subunit_tools_venv }}"
-      loop:
-        - "junitxml"
-        - "python-subunit"
-
     - name: Run tempest '{{ tempest_run_filter }}'
       shell: |
         ansible-playbook -i hosts/verb_hosts tempest-run.yml \
@@ -63,27 +55,3 @@
 
     - include_tasks: retry_failed.yml
       when: tempest_retry_failed
-
-  always:
-    - name: Generate xml subunit results
-      shell: "{{ subunit_tools_venv }}/bin/subunit2junitxml {{ tempest_results_subunit }} > {{ subunit_xml_results }}"
-      changed_when: false
-      failed_when: false
-
-    - name: Generate html subunit results
-      shell: "subunit2html {{ tempest_results_subunit }} {{ subunit_html_results }}"
-      changed_when: false
-      failed_when: false
-
-    - name: Get '{{ tempest_run_filter }}' results from subunit
-      command: "{{ subunit_tools_venv }}/bin/subunit-stats {{ tempest_results_subunit }}"
-      failed_when: false
-      register: _test_results
-
-    - name: Process test results from subunit
-      set_fact:
-        tempest_test_results: "{{ tempest_test_results | default({}) | combine({item.split()[0] | lower: item.split()[-1]}) }}"
-      when: "'tests' in item"
-      loop: "{{ _test_results.stdout_lines }}"
-      loop_control:
-        label: "{{ item.split()[0] | lower }}: {{ item.split()[-1] }}"

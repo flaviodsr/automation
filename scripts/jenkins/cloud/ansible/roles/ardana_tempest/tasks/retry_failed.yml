@@ -55,7 +55,7 @@
   always:
     - name: Combine test outputs
       shell: |
-        {{ subunit_tools_venv }}/bin/subunit-filter -fs {{ tempest_results_subunit }}.previous >> {{ tempest_results_subunit }}
+        subunit-filter -fs {{ tempest_results_subunit }}.previous >> {{ tempest_results_subunit }}
         cat {{ tempest_results_log }}.previous {{ tempest_results_log  }} > {{ tempest_results_log }}.tmp
         mv {{ tempest_results_log }}.tmp {{ tempest_results_log }} && chown tempest.tempest {{ tempest_results_log }}
       become: yes

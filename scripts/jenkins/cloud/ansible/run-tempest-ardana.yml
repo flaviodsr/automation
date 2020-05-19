@@ -35,6 +35,12 @@
     - block:
         - include_role:
             name: ardana_tempest
+            public: yes
+
+        - include_role:
+            name: tempest_results
+            public: yes
+
       rescue:
         - include_role:
             name: rocketchat_notify
@@ -46,6 +52,7 @@
         - name: Stop if something failed
           fail:
             msg: "{{ task }} failed."
+
       always:
         - include_role:
             name: jenkins_artifacts
