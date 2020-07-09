@@ -16,7 +16,7 @@ pipeline {
 
   agent {
     node {
-      label "cloud-ci"
+      label "cloud-ci-ecpneutrondebug"
       customWorkspace "${JOB_NAME}-${BUILD_NUMBER}"
     }
   }
